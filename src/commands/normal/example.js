@@ -1,0 +1,17 @@
+const { MessageEmbed } = require('discord.js');
+
+module.exports = {
+  callback: (message) => {
+    const embed = new MessageEmbed()
+      .setTitle('example')
+      .setDescription('this is an example')
+      .addFields(
+        { name: "field example 1", value: "field example 1" },
+        { name: "field example 2", value: "field example 2" }
+      )
+      .setFooter({ text: "footer example" })
+      .setColor('BLUE') // blue, blue and only blue!!
+
+    message.channel.send({ embeds: [embed] });
+  }
+};
