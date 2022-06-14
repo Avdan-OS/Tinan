@@ -1,5 +1,5 @@
-const { MessageEmbed } = require("discord.js");
-const getFiles = require("../utils/getFiles");
+const { MessageEmbed } = require('discord.js');
+const getFiles = require('../utils/getFiles');
 
 module.exports = (client) => {
   const path = '\\commands';

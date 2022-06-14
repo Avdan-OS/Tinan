@@ -1,4 +1,4 @@
-const fs = require("fs");
+const fs = require('fs');
 
 const getFiles = (dir, suffix) => {
   const files = fs.readdirSync(process.cwd() + dir, {
