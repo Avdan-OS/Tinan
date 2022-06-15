@@ -19,12 +19,19 @@ Step 5.3: Copy the link in the bottom of the page and paste it into your search 
 
 Step 6: Reset your bot's token and copy it. It will be used later.
 ## Making it work
-Step 7: Inside the src folder, make a .env file, and type: `DISCORD_TOKEN=your token`
+Step 7: Inside the `src` folder, make a `.env` file, and type: `DISCORD_TOKEN=your token`
 
-Step 8: In your terminal, run `npm install`. It will install all the modules needed to run the bot.
+### Step 8. Get your Discord server ID
+Step 8.1: Enable developer mode by going into Settings (near your profile picture in the bottom) > Advanced > Developer Mode.
 
-Step 9: Run `cd src` and afterwards `node .` to launch the bot.
+Step 8.2: Copy your server ID by right clicking the server icon and clicking "Copy ID".
+
+Step 9: Inside the src > handlers folder, open `commands.js` and in the 38th line, replace the number in a string with your ID.
+
+Step 10: In your terminal, run `npm install`. It will install all the modules needed to run the bot.
+
+Step 11: Run `cd src` and afterwards `node .` to launch the bot.
 ## How to make commands
-Step 10: In the commands folder, there's 2 `example.js` files. You can use them as a reference to build new commands.
+Step 12: In the commands folder, there's 2 `example.js` files. You can use them as a reference to build new commands.
 ## Pull requests
-Step 11: Remember to put a short and concise list of changes to make the review process easier.
+Step 13: Remember to put a short and concise list of changes to make the review process easier.
