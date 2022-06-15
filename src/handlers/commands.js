@@ -35,7 +35,7 @@ module.exports = (client) => {
 
   const slashCommands = [];
   const slashCommandFiles = getFiles(`${path}\\slash`, '.js');
-  const guild = client.guilds.cache.get('938763995102470204');
+  const guild = client.guilds.cache.get('986268144446341142');
   for (const slashCommand of slashCommandFiles) {
     let slashCommandFile = require(slashCommand);
 
