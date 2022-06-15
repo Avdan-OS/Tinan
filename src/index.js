@@ -1,6 +1,6 @@
 const { Client, Intents } = require('discord.js');
 require('dotenv').config()
-const commands = require('./commands/CommandHandler.js');
+const commands = require('./commands/cmdHandler.js');
 
 const client = new Client({
 	intents: [
