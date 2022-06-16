@@ -1,11 +1,10 @@
 const { MessageEmbed } = require('discord.js');
 const getFiles = require('../toolkit/getFiles');
-
+require('dotenv').config();
 module.exports = (client) => {
   const path = '\\commands';
   const commands = [];
   const commandFiles = getFiles(`${path}\\normal`, '.js');
-  const prefix = '!';
 
   for (const command of commandFiles) {
     if (command.default) command = command.default;
@@ -16,9 +15,9 @@ module.exports = (client) => {
   }
 
   client.on('messageCreate', (message) => {
-    if (!message.content.startsWith(prefix)) return;
+    if (!message.content.startsWith(process.env.PREFIX)) return;
 
-    const args = message.content.slice(prefix.length).trim().split(/ +/);
+    const args = message.content.slice(process.env.PREFIX.length).trim().split(/ +/);
     const commandName = args.shift().toLowerCase();
     try {
       commands[commandName].callback(message, args);
@@ -35,7 +34,7 @@ module.exports = (client) => {
 
   const slashCommands = [];
   const slashCommandFiles = getFiles(`${path}\\slash`, '.js');
-  const guild = client.guilds.cache.get('986268144446341142');
+  const guild = client.guilds.cache.get('591684931780870144');
   for (const slashCommand of slashCommandFiles) {
     let slashCommandFile = require(slashCommand);
 
