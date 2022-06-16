@@ -19,7 +19,7 @@ Step 5.3: Copy the link in the bottom of the page and paste it into your search 
 
 Step 6: Reset your bot's token and copy it. It will be used later.
 ## Making it work
-Step 7: Inside the `src` folder, make a `.env` file, and type: `DISCORD_TOKEN=your token`
+Step 7: Inside the `src` folder, make a `.env` file, and type `DISCORD_TOKEN=your token` and `PREFIX=your prefix`
 
 ### Step 8. Get your Discord server ID
 Step 8.1: Enable developer mode by going into Settings (near your profile picture in the bottom) > Advanced > Developer Mode.

@@ -19,6 +19,6 @@ module.exports = {
       .setTitle(`${title}`)
       .setColor('BLUE')
 
-    interaction.reply({ embeds: [embed] });
+    interaction.reply({ embeds: [embed], ephemeral: true });
   }
 };

@@ -1,6 +1,7 @@
 const { MessageEmbed } = require('discord.js');
-const getFiles = require('../toolkit/getFiles');
+const getFiles = require('../utils/getFiles');
 require('dotenv').config();
+
 module.exports = (client) => {
   const path = '\\commands';
   const commands = [];
@@ -34,7 +35,7 @@ module.exports = (client) => {
 
   const slashCommands = [];
   const slashCommandFiles = getFiles(`${path}\\slash`, '.js');
-  const guild = client.guilds.cache.get('591684931780870144');
+  const guild = client.guilds.cache.get('986268144446341142');
   for (const slashCommand of slashCommandFiles) {
     let slashCommandFile = require(slashCommand);
 

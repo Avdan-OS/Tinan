@@ -1,5 +1,5 @@
 const { Client, Intents } = require('discord.js');
-require('dotenv').config()
+require('dotenv').config();
 const commands = require('./commands/cmdHandler.js');
 
 const client = new Client({
@@ -13,7 +13,7 @@ module.exports = client;
 client.on('ready', () => {
   commands(client);
 
-  client.user.setPresence({ activities: [{ name: 'everyone!', type: 'LISTENING' }] });
+  client.user.setPresence({ activities: [{ name: 'everyone!', type: 'WATCHING' }] });
 	console.log('Start completed.');
 });
 client.login(process.env.DISCORD_TOKEN);

@@ -15,6 +15,7 @@
     "@discordjs/builders": "^0.15.0",
     "discord.js": "^13.8.0",
     "dotenv": "^16.0.1",
-    "mongoose": "^6.3.6"
+    "mongoose": "^6.3.6",
+    "octokit": "^1.8.0"
   }
 }

@@ -25,7 +25,7 @@ module.exports = {
         .setStyle('SECONDARY'),
     )
 
-    interaction.reply({ embeds: [embed], components: [buttons] });
+    interaction.reply({ embeds: [embed], components: [buttons], ephemeral: true });
 
     const filter = (ButtonInteraction) => {
       return interaction.user.id != ButtonInteraction.user.id || interaction.user.id == ButtonInteraction.user.id;

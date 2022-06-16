@@ -19,6 +19,6 @@ module.exports = {
       .setFooter({ text: 'footer example' })
       .setColor('BLUE')
     
-    interaction.reply({ embeds: [embed] });
+    interaction.reply({ embeds: [embed], ephemeral: true });
   }  
 };
