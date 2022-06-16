@@ -13,7 +13,7 @@ module.exports = client;
 client.on('ready', () => {
   commands(client);
 
-  client.user.setPresence({ activities: [{ name: 'everyone!', type: 'WATCHING' }] });
+  client.user.setPresence({ activities: [{ name: 'discord.gg/avdanos', type: 'WATCHING' }] });
 	console.log('Start completed.');
 });
 client.login(process.env.DISCORD_TOKEN);
