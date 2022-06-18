@@ -18,7 +18,7 @@ module.exports = (client) => {
     const multiReact = function (msg,reactions) {
       for (let i = 0; i < reactions.length; i++) { msg.react(reactions.substring(i,i+1)) }
     }
-    const extCommands = [/*["bread","🍞 Bread👍"],*/["bread",() => { for (const i of "🍞🇧🇷🇪🇦🇩👍") { message.react(i) }}],["69","noice"],["420","noice"],["pineapple",() => message.react("🍍")],["cheese",() => message.react("🧀")]]
+    const extCommands = [/*["bread","🍞 Bread👍"],*/["bread",() => { for (const i of "🍞🇧 🇷 🇪 🇦 🇩👍") { if (i!=" ") message.react(i) }}],["69","noice"],["420","noice"],["pineapple",() => message.react("🍍")],["cheese",() => message.react("🧀")]]
     if (!message.author.bot) {
       if (!message.content.startsWith(process.env.PREFIX)) {
         for (const msg of extCommands) {
