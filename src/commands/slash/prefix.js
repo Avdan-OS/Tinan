@@ -1,4 +1,4 @@
-const { MessageEmbed, Constants } = require('discord.js');
+const { MessageEmbed, Constants, Permissions } = require('discord.js');
 
 module.exports = {
   name: 'prefix',
@@ -16,12 +16,18 @@ module.exports = {
     const embed = new MessageEmbed()
       .setTitle(`The current server prefix is ${process.env.PREFIX}`)
       .setColor('BLUE')
-    if (interaction.options.getString('prefix')) { 
-      oldPrefix = process.env.PREFIX
-      process.env.PREFIX = interaction.options.getString('prefix')
-      embed.setTitle(`Prefix changed from ${oldprefix} to ${process.env.PREFIX}`)
-      embed.setColor('GREEN')
-      temp = false;
+    if (interaction.options.getString('prefix')) {
+      if(interaction.member.permissions.has(Permissions.FLAGS.MANAGE_GUILD)) {
+        oldPrefix = process.env.PREFIX
+        process.env.PREFIX = interaction.options.getString('prefix')
+        embed.setTitle(`Prefix changed from ${oldprefix} to ${process.env.PREFIX}`)
+        embed.setColor('GREEN')
+        temp = false;
+      } else {
+        embed.setTitle(`Error`)
+        embed.setDescription(`You don't have sufficient permissions to execute that command`)
+        embed.setColor('RED')
+      }
     }
     interaction.reply({ embeds: [embed] , ephemeral: temp });
   }

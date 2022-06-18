@@ -13,10 +13,11 @@ module.exports = {
       let embed = new MessageEmbed()
         .setTitle('Repository list')
         .setColor('BLUE')
+        .setFooter({text: "Click on an arrow to open the corresponding repository"})
 
       data.data.forEach(dataChildren => {
         embed.addFields(
-          { name: `${dataChildren.name}`, value: `${dataChildren.description}` }
+          { name: `${dataChildren.name}`, value: `[>](https://github.com/Avdan-OS/${dataChildren.name}) ${dataChildren.description}` }
         )
       })
       message.channel.send({ embeds: [embed] });
