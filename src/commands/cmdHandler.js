@@ -8,22 +8,21 @@ module.exports = (client) => {
   const commandFiles = getFiles(`${path}\\normal`, '.js');
   
   for (const command of commandFiles) {
-    if (command.default) command = command.default;
-
     const split = command.replace(/\\/g, '/').split('/');
     const commandName = split[split.length - 1].replace('.js', '');
     commands[commandName.toLowerCase()] = require(command);
   }
   client.on('messageCreate', (message) => {
-    const multiReact = function (msg,reactions) {
-      for (let i = 0; i < reactions.length; i++) { msg.react(reactions.substring(i,i+1)) }
-    }
-    const extCommands = [/*["bread","🍞 Bread👍"],*/["bread",() => { for (const i of "🍞🇧 🇷 🇪 🇦 🇩👍") { if (i!=" ") message.react(i) }}],["69","noice"],["420","noice"],["pineapple",() => message.react("🍍")],["cheese",() => message.react("🧀")]]
+    const extCommands = [
+      ['bread', () => { for (const i of '🍞🇧 🇷 🇪 🇦 🇩👍') { if (i != ' ') message.react(i) }}],
+      ['pineapple', () => message.react('🍍')],
+      ['cheese', () => message.react('🧀')]
+    ]
     if (!message.author.bot) {
       if (!message.content.startsWith(process.env.PREFIX)) {
         for (const msg of extCommands) {
           if (message.content.toLowerCase().includes(msg[0])) {
-            if (typeof(msg[1])!="string") return msg[1]();
+            if (typeof(msg[1]) != 'string') return msg[1]();
             else return message.channel.send(msg[1]);
           };
         };
@@ -43,7 +42,7 @@ module.exports = (client) => {
           message.channel.send({ embeds: [embed] });
         }
       }
-    } else return
+    } else return;
   });
 
   const slashCommands = [];
@@ -51,27 +50,25 @@ module.exports = (client) => {
   const guild = client.guilds.cache.get('986268144446341142');
   for (const slashCommand of slashCommandFiles) {
     let slashCommandFile = require(slashCommand);
-
     slashCommands[slashCommandFile.name.toLowerCase()] = slashCommandFile;
     slashCommands.push(slashCommandFile);
   };
   guild.commands.set(slashCommands);
-  global.pollsList={}
+  global.pollsList = {};
   client.on('interactionCreate', (interaction) => {
     if (!interaction.isCommand()) {
       if (interaction.isButton()) {
-        if (interaction.customId.substring(0,4)=="poll") {
-          //console.log(interaction.message.components[0].components[0])
-          const pollid = interaction.customId.substring(5,10)
+        if (interaction.customId.substring(0,4) == 'poll') {
+          const pollId = interaction.customId.substring(5, 10);
           let embed = new MessageEmbed()
-          if (global.pollsList[pollid][interaction.user.id]) embed.setTitle('You have already voted for this poll').setColor("RED")
+          if (global.pollsList[pollId][interaction.user.id]) embed.setTitle('You have already voted for this poll').setColor('RED');
           else {
-            global.pollsList[pollid][interaction.user.id]=interaction.customId
-            embed.setTitle(`You successfully voted for **${getLabel(pollid,interaction.customId.substring(11,13))}**`).setColor("GREEN")
+            global.pollsList[pollId][interaction.user.id] = interaction.customId;
+            embed.setTitle(`You successfully voted for **${getLabel(pollId, interaction.customId.substring(11,13))}**`).setColor('GREEN');
           }
-          return interaction.reply({embeds: [embed], ephemeral: true})
-        } else return
-      } else return
+          return interaction.reply({embeds: [embed], ephemeral: true });
+        } else return;
+      } else return;
     } else {
       try {
         slashCommands[interaction.commandName].callback(interaction);

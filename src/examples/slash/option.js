@@ -34,7 +34,7 @@ module.exports = {
       embed.setTitle('you like option')
       embed.setColor('GREEN')
     } else {
-      embed.setTitle('you have option :<')
+      embed.setTitle('you hate option :<')
       embed.setColor('RED')
     }
     interaction.reply({ embeds: [embed], ephemeral: true });

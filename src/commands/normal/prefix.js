@@ -1,4 +1,4 @@
-const { MessageEmbed, Permissions} = require('discord.js');
+const { MessageEmbed, Permissions } = require('discord.js');
 
 module.exports = {
   callback: (message, args) => {
@@ -7,10 +7,10 @@ module.exports = {
       .setColor('BLUE')
     
     if (args[0]) { 
-      if(message.member.permissions.has(Permissions.FLAGS.MANAGE_GUILD)) {
-        oldPrefix = process.env.PREFIX
-        process.env.PREFIX = args[0]
-        embed.setTitle(`Prefix changed from ${oldprefix} to ${process.env.PREFIX}`)
+      if (message.member.permissions.has(Permissions.FLAGS.MANAGE_GUILD)) {
+        oldPrefix = process.env.PREFIX;
+        process.env.PREFIX = args[0];
+        embed.setTitle(`Prefix changed from ${oldPrefix} to ${process.env.PREFIX}`)
         embed.setColor('GREEN')
         temp = false;
       } else {

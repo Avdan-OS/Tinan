@@ -7,7 +7,7 @@ module.exports = {
       .setDescription('There may be bugs, if you find them: ping goos#1337.')
       .addFields(
         { name: 'Prefix', value: process.env.PREFIX },
-        { name: 'Test', value: 'repolist, prefix' }
+        { name: 'Test', value: 'repolist, prefix, poll' }
       )
       .setColor('BLUE')
 

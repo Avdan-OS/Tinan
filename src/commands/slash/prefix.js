@@ -6,8 +6,8 @@ module.exports = {
   options: [
     {
       name: 'prefix',
-      description :'Changes the bot prefix',
-      required : false,
+      description: 'Changes the bot prefix',
+      required: false,
       type: Constants.ApplicationCommandOptionTypes.STRING
     }
   ],
@@ -17,10 +17,10 @@ module.exports = {
       .setTitle(`The current server prefix is ${process.env.PREFIX}`)
       .setColor('BLUE')
     if (interaction.options.getString('prefix')) {
-      if(interaction.member.permissions.has(Permissions.FLAGS.MANAGE_GUILD)) {
-        oldPrefix = process.env.PREFIX
-        process.env.PREFIX = interaction.options.getString('prefix')
-        embed.setTitle(`Prefix changed from ${oldprefix} to ${process.env.PREFIX}`)
+      if (interaction.member.permissions.has(Permissions.FLAGS.MANAGE_GUILD)) {
+        oldPrefix = process.env.PREFIX;
+        process.env.PREFIX = interaction.options.getString('prefix');
+        embed.setTitle(`Prefix changed from ${oldPrefix} to ${process.env.PREFIX}`)
         embed.setColor('GREEN')
         temp = false;
       } else {

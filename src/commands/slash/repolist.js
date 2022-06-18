@@ -15,7 +15,7 @@ module.exports = {
       let embed = new MessageEmbed()
         .setTitle('Repository list')
         .setColor('BLUE')
-        .setFooter({text: "Click on an arrow to open the corresponding repository"})
+        .setFooter({ text: 'Click on an arrow to open the corresponding repository' })
 
       data.data.forEach(dataChildren => {
         embed.addFields(
