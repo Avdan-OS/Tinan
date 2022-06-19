@@ -16,7 +16,8 @@ module.exports = (client) => {
     const extCommands = [
       ['bread', () => { for (const i of '🍞🇧 🇷 🇪 🇦 🇩👍') { if (i != ' ') message.react(i) }}],
       ['pineapple', () => message.react('🍍')],
-      ['cheese', () => message.react('🧀')]
+      ['cheese', () => message.react('🧀')],
+      ['forgor', () => message.react('💀')]
     ]
     if (!message.author.bot) {
       if (!message.content.startsWith(process.env.PREFIX)) {

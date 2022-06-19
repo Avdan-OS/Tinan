@@ -94,7 +94,7 @@ module.exports = {
         name: interaction.member.displayName,
         iconURL: interaction.member.displayAvatarURL()
       })
-      const getButton = (buttonId) => interaction.options.getString(buttonId);
+      const getButton = (buttonID) => interaction.options.getString(buttonID);
       const row1 = new MessageActionRow();
       const row2 = new MessageActionRow();
       const pollId = Math.floor(Math.random() * 89999) + 10000;
@@ -124,7 +124,7 @@ module.exports = {
       if (row1.components.length) rows.push(row1);
       if (row2.components.length) rows.push(row2);
       pollsList[pollId] = {};
-      global.getLabel = function (pollId, buttonId) { if (pollId == pollId) return interaction.options.getString(buttonId) };
+      global.getLabel = function (pollID, buttonID) { if (pollID == pollId) return interaction.options.getString(buttonID) };
       let mention = ' ';
       if (interaction.options.getBoolean('mention')) mention = '@everyone';
       interaction.channel.send({ content: mention, embeds: [embed], components: rows }).then(message => {
