@@ -1,6 +1,6 @@
 const { Client, Intents } = require('discord.js');
 require('dotenv').config();
-const commands = require('./commands/cmdHandler.js');
+const events = require('./handlers/eventHandler');
 
 const client = new Client({
 	intents: [
@@ -8,12 +8,6 @@ const client = new Client({
     Intents.FLAGS.GUILD_MESSAGES,
   ]
 });
-module.exports = client;
 
-client.on('ready', () => {
-  commands(client);
-
-  client.user.setPresence({ activities: [{ name: 'discord.gg/avdanos', type: 'WATCHING' }] });
-	console.log('Start completed.');
-});
+events(client);
 client.login(process.env.DISCORD_TOKEN);

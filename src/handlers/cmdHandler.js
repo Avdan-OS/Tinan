@@ -32,7 +32,7 @@ module.exports = (client) => {
         const args = message.content.slice(process.env.PREFIX.length).trim().split(/ +/);
         const commandName = args.shift().toLowerCase();
         try {
-          commands[commandName].callback(message, args);
+          commands[commandName].callback(message, ...args);
         } catch (error) {
           console.error(error);
 
@@ -49,11 +49,12 @@ module.exports = (client) => {
   const slashCommands = [];
   const slashCommandFiles = getFiles(`${path}\\slash`, '.js');
   const guild = client.guilds.cache.get('986268144446341142');
-  for (const slashCommand of slashCommandFiles) {
-    let slashCommandFile = require(slashCommand);
-    slashCommands[slashCommandFile.name.toLowerCase()] = slashCommandFile;
+  for (const slashCommandFile of slashCommandFiles) {
+    let slashCommand = require(slashCommandFile);
+    slashCommands[slashCommand.name.toLowerCase()] = slashCommand;
     slashCommands.push(slashCommandFile);
   };
+  console.log(slashCommands);
   guild.commands.set(slashCommands);
   global.pollsList = {};
   client.on('interactionCreate', (interaction) => {
