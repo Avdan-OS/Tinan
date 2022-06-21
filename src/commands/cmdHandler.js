@@ -1,6 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 const getFiles = require('../utils/getFiles');
 require('dotenv').config();
+const config = require('../config.json');
 
 module.exports = (client) => {
   const path = '\\commands';
