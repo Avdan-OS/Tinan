@@ -26,7 +26,7 @@ Step 8.1: Enable developer mode by going into Settings (near your profile pictur
 
 Step 8.2: Copy your server ID by right clicking the server icon and clicking "Copy ID".
 
-Step 9: Inside the src > handlers folder, open `commands.js` and in the 38th line, replace the number in a string with your ID.
+Step 9: Inside the src > commands folder, open `cmdHandler.js` and in the 57th line, replace the number in a string with your ID.
 
 Step 10: In your terminal, run `npm install`. It will install all the modules needed to run the bot.
 
