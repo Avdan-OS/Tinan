@@ -46,7 +46,7 @@ module.exports = {
 			const loaChannel = interaction.guild.channels.cache.find((c) => c.id === config.loaReports);
 
 			const embed = new MessageEmbed({
-				title: `\`${dev.user.tag}\` is asking for an LOA`,
+				title: `LOA pending`,
 				color: '#0099ff',
 				fields: [
 					{
@@ -60,6 +60,9 @@ module.exports = {
 						inline: true,
 					},
 				],
+			}).setAuthor({
+				name: interaction.member.user.tag,
+				iconURL: interaction.member.displayAvatarURL()
 			});
 			const buttons = new MessageActionRow().addComponents(
 				new MessageButton()
@@ -79,13 +82,11 @@ module.exports = {
 					if (collection.first().customId == 'accept') {
 					  dev.setNickname(`[LOA] ${dev.displayName}`); 
 					  dev.roles.add(loaRole);
-					  embed.setTitle(`\`${dev.user.tag}\` was granted an LOA`)
-					  embed.setDescription(`LOA granted by \`${collection.first().member.user.tag}\``)
+					  embed.setTitle(`LOA granted by \`${collection.first().member.user.tag}\``)
 					  embed.setColor("GREEN")
 					  message.edit({ embeds: [embed], components: [] });
 					} else {
-					  embed.setTitle(`\`${dev.user.tag}\` was denied an LOA`)
-					  embed.setDescription(`LOA denied by \`${collection.first().member.user.tag}\``)
+					  embed.setTitle(`LOA denied by \`${collection.first().member.user.tag}\``)
 					  embed.setColor("RED")
 					  message.edit({ embeds: [embed], components: [] });
 					}
@@ -105,8 +106,11 @@ module.exports = {
 			const loaChannel = interaction.guild.channels.cache.find((c) => c.id === config.loaReports);
 
 			const embed = new MessageEmbed({
-				title: `\`${dev.user.tag}\` returned from their LOA`,
+				title: `Returned from their LOA`,
 				color: '#0099ff',
+			}).setAuthor({
+				name: interaction.member.user.tag,
+				iconURL: interaction.member.displayAvatarURL()
 			});
 
 			if (dev.displayName.slice(0, 6) !== '[LOA] ') {
