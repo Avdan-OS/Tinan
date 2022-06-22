@@ -106,11 +106,13 @@ module.exports = {
   ],
 
   callback: (interaction) => {
+    const pollId = Math.floor(Math.random() * 89999) + 10000;
     const timestamp = parseInt(Date.now().toString().substring(0,10)) + interaction.options.getInteger('time') + 1
     let embed = new MessageEmbed({
       title: `Poll: ${interaction.options.getString('subject')}`,
       description: `Poll ends <t:${timestamp}:R>`,
       color: 'BLUE',
+      footer: "Poll id: "+pollId.toString(),
       fields: [
         {
           name: 'Total votes',
@@ -127,7 +129,7 @@ module.exports = {
       const getButton = (buttonID) => interaction.options.getString(buttonID);
       const row1 = new MessageActionRow();
       const row2 = new MessageActionRow();
-      const pollId = Math.floor(Math.random() * 89999) + 10000;
+      
 
       for (let i = 1; i < 6; i++) { 
         if (getButton(i.toString())) {

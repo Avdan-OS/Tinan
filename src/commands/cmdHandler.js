@@ -6,13 +6,7 @@ const config = require('../config.json');
 module.exports = (client) => {
   const path = '\\commands';
   const commands = [];
-  const commandFiles = getFiles(`${path}\\normal`, '.js');
-  const extCommands = [
-    ['bread', () => { for (const i of '🍞🇧 🇷 🇪 🇦 🇩👍') { if (i != ' ') message.react(i) }}],
-    ['pineapple', () => message.react('🍍')],
-    ['cheese', () => message.react('🧀')],
-    ['forgor', () => message.react('💀')]
-  ]
+  const commandFiles = getFiles(`${path}\\normal`, '.js')
   const channelRegex = [
     ["964459799817363497", /\*\*Title:\*\* .+\n\*\*Information:\*\* .+/gm],
     ["988920473897279498", /\*\*Title:\*\* .+\n\*\*Information:\*\* .+/gm]
@@ -24,6 +18,12 @@ module.exports = (client) => {
     commands[commandName.toLowerCase()] = require(command);
   }
   client.on('messageCreate', (message) => {
+    const extCommands = [
+      ['bread', () => { for (const i of '🍞🇧 🇷 🇪 🇦 🇩👍') { if (i != ' ') message.react(i) }}],
+      ['pineapple', () => message.react('🍍')],
+      ['cheese', () => message.react('🧀')],
+      ['forgor', () => message.react('💀')]
+    ]
     if (!message.author.bot) {
       if (!message.content.startsWith(process.env.PREFIX)) {
         for (const chann of channelRegex){
@@ -71,7 +71,7 @@ module.exports = (client) => {
 
   const slashCommands = [];
   const slashCommandFiles = getFiles(`${path}\\slash`, '.js');
-  const guild = client.guilds.cache.get('986268144446341142');
+  const guild = client.guilds.cache.get(process.env.GUILD);
   for (const slashCommand of slashCommandFiles) {
     let slashCommandFile = require(slashCommand);
     slashCommands[slashCommandFile.name.toLowerCase()] = slashCommandFile;
