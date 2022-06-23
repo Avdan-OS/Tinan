@@ -11,7 +11,7 @@ module.exports = (client) => {
     ["964459799817363497", /\*\*Title:\*\* .+\n\*\*Information:\*\* .+/gm],
     ["988920473897279498", /\*\*Title:\*\* .+\n\*\*Information:\*\* .+/gm]
   ]
-
+  global.pollsList = {};
   for (const command of commandFiles) {
     const split = command.replace(/\\/g, '/').split('/');
     const commandName = split[split.length - 1].replace('.js', '');
@@ -71,26 +71,26 @@ module.exports = (client) => {
 
   const slashCommands = [];
   const slashCommandFiles = getFiles(`${path}\\slash`, '.js');
-  const guild = client.guilds.cache.get(process.env.GUILD);
   for (const slashCommand of slashCommandFiles) {
     let slashCommandFile = require(slashCommand);
     slashCommands[slashCommandFile.name.toLowerCase()] = slashCommandFile;
     slashCommands.push(slashCommandFile);
   };
-  guild.commands.set(slashCommands);
-  global.pollsList = {};
-  client.on('interactionCreate', (interaction) => {
-    if (interaction.isCommand()) {
-      try {
-        slashCommands[interaction.commandName].callback(interaction);
-      } catch (error) {
-        console.error(error);
-
-        const embed = new MessageEmbed()
-          .setTitle('An error occured while executing that command.')
-          .setColor('RED')
-        interaction.reply({ embeds: [embed], ephemeral: true });
+  for (const guildID of client.guilds.cache.keys()) {
+    const guild = client.guilds.cache.get(guildID);
+    guild.commands.set(slashCommands);
+    client.on('interactionCreate', (interaction) => {
+      if (interaction.isCommand()) {
+        try {
+          slashCommands[interaction.commandName].callback(interaction);
+        } catch (error) {
+          console.error(error);
+          const embed = new MessageEmbed()
+            .setTitle('An error occured while executing that command.')
+            .setColor('RED')
+          interaction.reply({ embeds: [embed], ephemeral: true });
+        }
       }
-    }
-  });
+    });
+  }
 };
