@@ -80,20 +80,7 @@ module.exports = (client) => {
   guild.commands.set(slashCommands);
   global.pollsList = {};
   client.on('interactionCreate', (interaction) => {
-    if (!interaction.isCommand()) {
-      if (interaction.isButton()) {
-        if (interaction.customId.substring(0,4) == 'poll') {
-          const pollId = interaction.customId.substring(5, 10);
-          let embed = new MessageEmbed()
-          if (global.pollsList[pollId][interaction.user.id]) embed.setTitle('You have already voted for this poll').setColor('RED');
-          else {
-            global.pollsList[pollId][interaction.user.id] = interaction.customId;
-            embed.setTitle(`You successfully voted for **${getLabel(pollId, interaction.customId.substring(11,13))}**`).setColor('GREEN');
-          }
-          return interaction.reply({embeds: [embed], ephemeral: true });
-        } else return;
-      } else return;
-    } else {
+    if (interaction.isCommand()) {
       try {
         slashCommands[interaction.commandName].callback(interaction);
       } catch (error) {

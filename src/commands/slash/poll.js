@@ -216,5 +216,19 @@ module.exports = {
       embed.setColor('RED')
       interaction.reply({ embeds: [embed], ephemeral: true });
     }
+    interaction.client.on('interactionCreate', (interact) => {
+      if (interact.isButton()) {
+        if (interact.customId.substring(0,4) == 'poll') {
+          const pollId = interact.customId.substring(5, 10);
+          let embed = new MessageEmbed()
+          if (global.pollsList[pollId][interact.user.id]) embed.setTitle('You have already voted for this poll').setColor('RED');
+          else {
+            global.pollsList[pollId][interact.user.id] = interact.customId;
+            embed.setTitle(`You successfully voted for **${getLabel(pollId, interact.customId.substring(11,13))}**`).setColor('GREEN');
+          }
+          return interact.reply({embeds: [embed], ephemeral: true });
+        } else return;
+      } else return;
+    });
   }
 };
