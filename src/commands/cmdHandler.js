@@ -80,7 +80,7 @@ module.exports = (client) => {
     const guild = client.guilds.cache.get(guildID);
     guild.commands.set(slashCommands);
     client.on('interactionCreate', (interaction) => {
-      if (interaction.isCommand()) {
+      if (interaction.isCommand() && interaction.guildId == guildID) {
         try {
           slashCommands[interaction.commandName].callback(interaction);
         } catch (error) {
