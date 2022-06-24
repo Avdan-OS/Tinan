@@ -12,17 +12,24 @@ module.exports = (client) => {
     ["988920473897279498", /\*\*Title:\*\* .+\n\*\*Information:\*\* .+/gm]
   ]
   global.pollsList = {};
+
+  global.multiReact = (msg, reactions) => {
+    for (const i of reactions) if (i != ' ') msg.react(i)
+  }
+
   for (const command of commandFiles) {
     const split = command.replace(/\\/g, '/').split('/');
     const commandName = split[split.length - 1].replace('.js', '');
     commands[commandName.toLowerCase()] = require(command);
   }
   client.on('messageCreate', (message) => {
+    
     const extCommands = [
-      ['bread', () => { for (const i of '🍞🇧 🇷 🇪 🇦 🇩👍') { if (i != ' ') message.react(i) }}],
-      ['pineapple', () => message.react('🍍')],
-      ['cheese', () => message.react('🧀')],
-      ['forgor', () => message.react('💀')]
+      [['bread'], () => { multiReact(message, '🍞🇧 🇷 🇪 🇦 🇩👍') }],
+      [['pineapple'], () => message.react('🍍')],
+      [['cheese'], () => message.react('🧀')],
+      [['forgor'], () => message.react('💀')],
+      [["download avdan os", "avdan os iso"],"We have not finished developing AvdanOS, so there is not a download yet.\nWe are currently working on the **window manager**.\nSubscribe to this channel for updates on our development.\nhttps://www.youtube.com/channel/UCKt_7dN4Y7SUy2gMJWf6suA"],
     ]
     if (!message.author.bot) {
       if (!message.content.startsWith(process.env.PREFIX)) {
@@ -35,10 +42,16 @@ module.exports = (client) => {
           }
         }
         for (const msg of extCommands) {
-          if (message.content.toLowerCase().includes(msg[0])) {
-            if (typeof(msg[1]) != 'string') return msg[1]();
-            else return message.channel.send(msg[1]);
-          };
+          for (const msgEvent of msg[0]) { //If we need multiple triggers, that's why each element of extCommands have a list as first element
+            let unmatch = false
+            for (const word of msgEvent.split(" ")) { //Uses word by word detection instead of full trigger detection
+              if (!message.content.toLowerCase().includes(word)) unmatch = true
+            }
+            if (!unmatch) {
+              if (typeof(msg[1]) != 'string') return msg[1]();
+              else return message.reply(msg[1]);
+            }
+          }
         };
         return;
       } else {
