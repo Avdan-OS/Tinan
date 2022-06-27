@@ -29,7 +29,7 @@ module.exports = (client) => {
       [['pineapple'], () => message.react('🍍')],
       [['cheese'], () => message.react('🧀')],
       [['forgor'], () => message.react('💀')],
-      [["download avdan os", "avdan os iso"],"We have not finished developing AvdanOS, so there is not a download yet.\nWe are currently working on the **window manager**.\nSubscribe to this channel for updates on our development.\nhttps://www.youtube.com/channel/UCKt_7dN4Y7SUy2gMJWf6suA"],
+      [["download avdan os", "avdan os iso"],{embeds: [new MessageEmbed().setDescription("We have not finished developing AvdanOS, so there is not a download yet.\nWe are currently working on the **window manager**.\nSubscribe to [our Youtube channel](https://www.youtube.com/channel/UCKt_7dN4Y7SUy2gMJWf6suA) for updates on our development.").setColor("BLUE")]}],
     ]
     if (!message.author.bot) {
       if (!message.content.startsWith(process.env.PREFIX)) {
@@ -37,6 +37,21 @@ module.exports = (client) => {
           if (chann[0] == message.channelId) {
             if (!message.content.match(chann[1])/* && !message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)*/) {
               message.delete()
+              message.guild.channels.cache.find((c) => c.id === config.moderationChannel).send({ embeds: [new MessageEmbed()
+                .setTitle(`Regex not matched`)
+                .setDescription(`Message deleted in <#${message.channelId}> because it didn't match the following regex :\n\`${chann[1].toString()}\``)
+                .setAuthor({
+                  name: message.member.displayName,
+                  iconURL: message.member.displayAvatarURL()
+                })
+                .addFields([
+                  {
+                    name: 'Content',
+                    value: `>>> ${message.content}`,
+                    inline: true,
+                  }
+                ])
+              ]})
               return message.author.send(`Your message was deleted in <#${chann[0]}> because you didn't respect the required format (check pinned messages of the channel)\n>>> ${message.content}`)
             }
           }
@@ -48,7 +63,7 @@ module.exports = (client) => {
               if (!message.content.toLowerCase().includes(word)) unmatch = true
             }
             if (!unmatch) {
-              if (typeof(msg[1]) != 'string') return msg[1]();
+              if (typeof(msg[1]) != 'string' && typeof(msg[1]) != "object") return msg[1]();
               else return message.reply(msg[1]);
             }
           }
