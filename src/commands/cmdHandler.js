@@ -4,9 +4,9 @@ require('dotenv').config();
 const config = require('../config.json');
 
 module.exports = (client) => {
-  const path = '\\commands';
+  const path = '/commands';
   const commands = [];
-  const commandFiles = getFiles(`${path}\\normal`, '.js')
+  const commandFiles = getFiles(`${path}/normal`, '.js')
   const channelRegex = [
     ["964459799817363497", /\*\*Title:\*\* .+\n\*\*Information:\*\* .+/gm],
     ["988920473897279498", /\*\*Title:\*\* .+\n\*\*Information:\*\* .+/gm]
@@ -98,7 +98,7 @@ module.exports = (client) => {
   });
 
   const slashCommands = [];
-  const slashCommandFiles = getFiles(`${path}\\slash`, '.js');
+  const slashCommandFiles = getFiles(`${path}/slash`, '.js');
   for (const slashCommand of slashCommandFiles) {
     let slashCommandFile = require(slashCommand);
     slashCommands[slashCommandFile.name.toLowerCase()] = slashCommandFile;
