@@ -1,5 +1,4 @@
 const { MessageEmbed, MessageActionRow, MessageButton, Constants, Permissions } = require('discord.js');
-const { Collection } = require('mongoose');
 
 module.exports = {
   name: 'poll',
