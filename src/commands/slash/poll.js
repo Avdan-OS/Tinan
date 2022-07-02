@@ -118,12 +118,12 @@ module.exports = {
       description: `Poll ends <t:${timestamp}:R>`,
       color: 'BLUE',
     });
-    if ( interaction.member.permissions.has(Permissions.FLAGS.MANAGE_EVENTS)) {
-      if ( interaction.options._subcommand == "create" ) {
+    if (interaction.member.permissions.has(Permissions.FLAGS.MANAGE_EVENTS)) {
+      if (interaction.options._subcommand == 'create') {
         embed.addFields([
           {
             name: 'Total votes',
-            value: "0",
+            value: '0',
             inline: true,
           }
         ])
@@ -131,7 +131,7 @@ module.exports = {
           name: interaction.member.displayName,
           iconURL: interaction.member.displayAvatarURL()
         })
-        embed.setFooter({ text: "Poll id: "+pollId.toString() })
+        embed.setFooter({ text: 'Poll id: ' + pollId.toString() })
         const getButton = (buttonID) => interaction.options.getString(buttonID);
         const row1 = new MessageActionRow();
         const row2 = new MessageActionRow();
@@ -169,7 +169,7 @@ module.exports = {
           interaction.reply({ content: 'The poll has been created', ephemeral: true })
           const collector = interaction.channel.createMessageComponentCollector({ time: interaction.options.getInteger('time') * 1000 });
           collector.client.on('interactionCreate', (interact) => {
-            if (interact.isCommand()) if (interact.commandName == "poll") if (interact.options._subcommand == "end") if (interact.options.getInteger("id") == pollId) collector.stop()
+            if (interact.isCommand()) if (interact.commandName == 'poll') if (interact.options._subcommand == 'end') if (interact.options.getInteger('id') == pollId) collector.stop()
           })
           collector.on('collect', () => {
             embed.fields[0].value = Object.values(pollsList[pollId]).length.toString()
@@ -189,24 +189,22 @@ module.exports = {
                   winners.push(interaction.options.getString(i.toString()));
                 }
               }
-              const totalVotes = embed.fields[0].value
-              //embed.setTitle(`Poll ended: ${interaction.options.getString('subject')}`)
+              const totalVotes = embed.fields[0].value;
               embed.setDescription(`Poll ended <t:${timestamp}:R>`)
               embed.setFields([])
-              if (winners.length == 1) embed.addFields([{ name: "Winner", value: `**${winners}** with **${maxLength}** votes`, inline: true }])
-              else if (winners.length > 1) embed.addFields([{ name: "Winners", value: `**${winners}** with **${maxLength}** votes each`, inline: true }])
+              if (winners.length == 1) embed.addFields([{ name: 'Winner', value: `**${winners}** with **${maxLength}** votes`, inline: true }])
+              else if (winners.length > 1) embed.addFields([{ name: 'Winners', value: `**${winners}** with **${maxLength}** votes each`, inline: true }])
               else embed.setDescription(`There was no winner (no votes have been performed)`)
-              embed.addFields([{ name: "Total votes", value: totalVotes, inline: true }])
-              //embed.setFooter({ text: "" })
+              embed.addFields([{ name: 'Total votes', value: totalVotes, inline: true }])
               message.edit({ embeds: [embed], components: [] });
               delete pollsList[pollId];
             }
           });
         });
       } else {
-        embed.setTitle(`Poll \`${interaction.options.getInteger("id").toString()}\` was terminated by \`${interaction.member.user.tag}\``)
-        if (interaction.options.getString("reason")) embed.addFields([{ name: "Reason",  value: interaction.options.getString("reason"), inline: true }]).setDescription("")
-        else embed.setDescription("No reason specified")
+        embed.setTitle(`Poll \`${interaction.options.getInteger('id').toString()}\` was terminated by \`${interaction.member.user.tag}\``)
+        if (interaction.options.getString('reason')) embed.addFields([{ name: 'Reason',  value: interaction.options.getString('reason'), inline: true }]).setDescription('')
+        else embed.setDescription('No reason specified')
         interaction.reply({ embeds: [embed] })
       }
     } else {

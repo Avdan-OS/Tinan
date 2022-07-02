@@ -2,7 +2,7 @@ const { MessageEmbed } = require('discord.js');
 
 /**
  * @file This is an example of random responses. Slash command edition.
- * @author Serge
+ * @author AvdanOS
  */
 
 module.exports = {

@@ -1,5 +1,5 @@
-const config = require('../../config.json');
-const { MessageEmbed, MessageActionRow, MessageButton, Constants, Permissions } = require('discord.js');
+const cfg = require('../../config.json');
+const { MessageEmbed, MessageActionRow, MessageButton, Permissions } = require('discord.js');
 
 module.exports = {
 	name: 'loa',
@@ -10,6 +10,18 @@ module.exports = {
 			name: 'apply',
 			description: 'Apply for LOA',
 			options: [
+				{
+					name: 'github',
+					description: 'Your GitHub username.',
+					type: 'STRING',
+					required: true,
+				},
+				{
+					name: 'figma',
+					description: 'Your Figma username.',
+					type: 'STRING',
+					required: true,
+				},
 				{
 					name: 'reason',
 					description: 'The reason for your leave',
@@ -33,22 +45,32 @@ module.exports = {
 	callback: async (interaction) => {
 		const options = interaction.options;
 		if (options._subcommand === 'apply') {
-			if (!interaction.member.roles.cache.find((r) => r.name === "Developer")) {
+			if (!interaction.member.roles.cache.find((r) => r.name === 'Developer')) {
 				return interaction.reply({ content: 'You need the Developer role to apply for LOA', ephemeral: true });
 			}
 
-			if (interaction.member.roles.cache.find((r) => r.name === "[LOA]")) {
+			if (interaction.member.roles.cache.find((r) => r.name === '[LOA]')) {
 				return interaction.reply({ content: 'You are already set to LOA', ephemeral: true });
 			}
 
 			const dev = interaction.member;
-			const loaRole = interaction.guild.roles.cache.find((r) => r.name === "[LOA]");
-			const loaChannel = interaction.guild.channels.cache.find((c) => c.id === config.loaReports);
+			const loaRole = interaction.guild.roles.cache.find((r) => r.name === '[LOA]');
+			const loaChannel = interaction.guild.channels.cache.find((c) => c.id === cfg.loaReports);
 
 			const embed = new MessageEmbed({
 				title: `LOA pending`,
 				color: '#0099ff',
 				fields: [
+					{
+						name: 'GitHub username',
+						value: options.getString('github'),
+						inline: true,
+					},
+					{
+						name: 'Figma Username',
+						value: options.getString('figma'),
+						inline: true,
+					},
 					{
 						name: 'Reason',
 						value: options.getString('reason'),
@@ -83,27 +105,27 @@ module.exports = {
 					  dev.setNickname(`[LOA] ${dev.displayName}`); 
 					  dev.roles.add(loaRole);
 					  embed.setTitle(`LOA granted by \`${collection.first().member.user.tag}\``)
-					  embed.setColor("GREEN")
+					  embed.setColor('GREEN')
 					  message.edit({ embeds: [embed], components: [] });
 					} else {
 					  embed.setTitle(`LOA denied by \`${collection.first().member.user.tag}\``)
-					  embed.setColor("RED")
+					  embed.setColor('RED')
 					  message.edit({ embeds: [embed], components: [] });
 					}
 				})
 			});
 		} else if (options._subcommand === 'return') {
-			if (!interaction.member.roles.cache.find((r) => r.name === "Developer")) {
+			if (!interaction.member.roles.cache.find((r) => r.name === 'Developer')) {
 				return interaction.reply({ content: 'You need the Developer role to return from LOA', ephemeral: true });
 			}
 
-			if (!interaction.member.roles.cache.find((r) => r.name === "[LOA]")) {
+			if (!interaction.member.roles.cache.find((r) => r.name === '[LOA]')) {
 				return interaction.reply({ content: 'You are not set to LOA', ephemeral: true });
 			}
 
 			const dev = interaction.member;
-			const loaRole = interaction.guild.roles.cache.find((r) => r.name === "[LOA]");
-			const loaChannel = interaction.guild.channels.cache.find((c) => c.id === config.loaReports);
+			const loaRole = interaction.guild.roles.cache.find((r) => r.name === '[LOA]');
+			const loaChannel = interaction.guild.channels.cache.find((c) => c.id === cfg.loaReports);
 
 			const embed = new MessageEmbed({
 				title: `Returned from their LOA`,

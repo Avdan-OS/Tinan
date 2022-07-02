@@ -2,7 +2,7 @@ const { MessageEmbed } = require('discord.js');
 
 /**
  * @file This is an example of embeds. Slash command edition.
- * @author Serge
+ * @author AvdanOS
  */
 
 module.exports = {

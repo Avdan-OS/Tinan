@@ -2,7 +2,7 @@ const { MessageEmbed, Constants } = require('discord.js');
 
 /**
  * @file This is an example of options.
- * @author Serge
+ * @author AvdanOS
  */
 
 module.exports = {

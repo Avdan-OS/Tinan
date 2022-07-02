@@ -2,7 +2,7 @@ const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 
 /**
  * @file This command is an example that includes creating and responding to buttons. Normal command edition.
- * @author Serge
+ * @author AvdanOS
  */
 
 module.exports = {

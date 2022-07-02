@@ -1,8 +1,5 @@
 {
   "name": "tinan",
-  "scripts": {
-    "dev": "nodemon src/index.js"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/Avdan-OS/Tinan.git"
@@ -12,12 +9,8 @@
     "url": "https://github.com/Avdan-OS/Tinan/issues"
   },
   "dependencies": {
-    "@discordjs/builders": "^0.15.0",
-    "@octokit/webhooks": "^9.26.0",
-    "discord.js": "^13.8.0",
+    "discord.js": "^13.8.1",
     "dotenv": "^16.0.1",
-    "eventsource": "^2.0.2",
-    "nodemon": "^2.0.18",
-    "octokit": "^1.8.0"
+    "octokit": "^1.8.1"
   }
 }
