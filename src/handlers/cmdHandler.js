@@ -1,31 +1,90 @@
 const { MessageEmbed } = require('discord.js');
 const getFiles = require('../utils/getFiles');
+const resolve = require('path').resolve
 require('dotenv').config();
+const config = require('../config.json');
+
+const path = '/commands';
 
 module.exports = (client) => {
-  const path = '\\commands';
   const commands = [];
-  const commandFiles = getFiles(`${path}\\normal`, '.js');
-  
+  const commandFiles = getFiles(`${path}/normal`, '.js');
+  const channelRegex = [
+    ["964459799817363497", /\*\*Title:\*\* .+\n\*\*Information:\*\* .+/gm],
+    ["988920473897279498", /\*\*Title:\*\* .+\n\*\*Information:\*\* .+/gm]
+  ]
+  global.pollsList = {};
+
+  global.multiReact = (msg, reactions) => {
+    for (const i of reactions) if (i != ' ') msg.react(i)
+  }
+
   for (const command of commandFiles) {
     const split = command.replace(/\\/g, '/').split('/');
     const commandName = split[split.length - 1].replace('.js', '');
     commands[commandName.toLowerCase()] = require(command);
   }
   client.on('messageCreate', (message) => {
+    
     const extCommands = [
-      ['bread', () => { for (const i of '🍞🇧 🇷 🇪 🇦 🇩👍') { if (i != ' ') message.react(i) }}],
-      ['pineapple', () => message.react('🍍')],
-      ['cheese', () => message.react('🧀')],
-      ['forgor', () => message.react('💀')]
+      [['bread'], () => { multiReact(message, '🍞🇧 🇷 🇪 🇦 🇩👍') }],
+      [['pineapple'], () => message.react('🍍')],
+      [['cheese'], () => message.react('🧀')],
+      [['forgor'], () => message.react('💀')],
+      [["download avdan os", "avdan os iso"],{
+        embeds: [
+          new MessageEmbed()
+            .setDescription("We have not finished developing AvdanOS, so there is not a download yet.\nWe are currently working on the **window manager**.\nSubscribe to [our Youtube channel](https://www.youtube.com/channel/UCKt_7dN4Y7SUy2gMJWf6suA) for updates on our development.")
+            .setColor("BLUE")
+          ]
+        }
+      ],
+      [
+        ["how do i become developer", "how do i become a developer"], {
+          embeds: [
+            new MessageEmbed()
+              .setDescription("To join the team please go to #join-the-team, you must meet the requirements specified there.")
+              .setColor("BLUE")
+          ]
+        }
+      ]
     ]
     if (!message.author.bot) {
       if (!message.content.startsWith(process.env.PREFIX)) {
+        for (const chann of channelRegex){
+          if (chann[0] == message.channelId) {
+            if (!message.content.match(chann[1])/* && !message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)*/) {
+              message.delete()
+              message.guild.channels.cache.find((c) => c.id === config.moderationChannel).send({ embeds: [new MessageEmbed()
+                .setTitle(`Regex not matched`)
+                .setDescription(`Message deleted in <#${message.channelId}> because it didn't match the following regex :\n\`${chann[1].toString()}\``)
+                .setAuthor({
+                  name: message.member.displayName,
+                  iconURL: message.member.displayAvatarURL()
+                })
+                .addFields([
+                  {
+                    name: 'Content',
+                    value: `>>> ${message.content}`,
+                    inline: true,
+                  }
+                ])
+              ]})
+              return message.author.send(`Your message was deleted in <#${chann[0]}> because you didn't respect the required format (check pinned messages of the channel)\n>>> ${message.content}`)
+            }
+          }
+        }
         for (const msg of extCommands) {
-          if (message.content.toLowerCase().includes(msg[0])) {
-            if (typeof(msg[1]) != 'string') return msg[1]();
-            else return message.channel.send(msg[1]);
-          };
+          for (const msgEvent of msg[0]) { //If we need multiple triggers, that's why each element of extCommands have a list as first element
+            let unmatch = false
+            for (const word of msgEvent.split(" ")) { //Uses word by word detection instead of full trigger detection
+              if (!message.content.toLowerCase().includes(word)) unmatch = true
+            }
+            if (!unmatch) {
+              if (typeof(msg[1]) != 'string' && typeof(msg[1]) != "object") return msg[1]();
+              else return message.reply(msg[1]);
+            }
+          }
         };
         return;
       } else {
@@ -45,43 +104,39 @@ module.exports = (client) => {
       }
     } else return;
   });
-
-  const slashCommands = [];
-  const slashCommandFiles = getFiles(`${path}\\slash`, '.js');
-  const guild = client.guilds.cache.get('986268144446341142');
-  for (const slashCommandFile of slashCommandFiles) {
-    let slashCommand = require(slashCommandFile);
-    slashCommands[slashCommand.name.toLowerCase()] = slashCommand;
-    slashCommands.push(slashCommandFile);
-  };
-  console.log(slashCommands);
-  guild.commands.set(slashCommands);
-  global.pollsList = {};
-  client.on('interactionCreate', (interaction) => {
-    if (!interaction.isCommand()) {
-      if (interaction.isButton()) {
-        if (interaction.customId.substring(0,4) == 'poll') {
-          const pollId = interaction.customId.substring(5, 10);
-          let embed = new MessageEmbed()
-          if (global.pollsList[pollId][interaction.user.id]) embed.setTitle('You have already voted for this poll').setColor('RED');
-          else {
-            global.pollsList[pollId][interaction.user.id] = interaction.customId;
-            embed.setTitle(`You successfully voted for **${getLabel(pollId, interaction.customId.substring(11,13))}**`).setColor('GREEN');
-          }
-          return interaction.reply({embeds: [embed], ephemeral: true });
-        } else return;
-      } else return;
-    } else {
-      try {
-        slashCommands[interaction.commandName].callback(interaction);
-      } catch (error) {
-        console.error(error);
-
-        const embed = new MessageEmbed()
-          .setTitle('An error occured while executing that command.')
-          .setColor('RED')
-        interaction.reply({ embeds: [embed], ephemeral: true });
+  client.on('messageUpdate', (oldMessage, message) => {
+    for (const chann of channelRegex){
+      if (chann[0] == message.channelId) {
+        if (!message.content.match(chann[1])/* && !message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)*/) {
+          message.delete()
+          return message.author.send(`Your message was deleted in <#${chann[0]}> because you didn't respect the required format (check pinned messages of the channel)\n>>> ${message.content}`)
+        }
       }
     }
   });
+
+  const slashCommands = [];
+  const slashCommandFiles = getFiles(`${path}/slash`, '.js');
+  for (const slashCommand of slashCommandFiles) {
+    let slashCommandFile = require(slashCommand);
+    slashCommands[slashCommandFile.name.toLowerCase()] = slashCommandFile;
+    slashCommands.push(slashCommandFile);
+  };
+  for (const guildID of client.guilds.cache.keys()) {
+    const guild = client.guilds.cache.get(guildID);
+    guild.commands.set(slashCommands);
+    client.on('interactionCreate', (interaction) => {
+      if (interaction.isCommand() && interaction.guildId == guildID) {
+        try {
+          slashCommands[interaction.commandName].callback(interaction);
+        } catch (error) {
+          console.error(error);
+          const embed = new MessageEmbed()
+            .setTitle('An error occured while executing that command.')
+            .setColor('RED')
+          interaction.reply({ embeds: [embed], ephemeral: true });
+        }
+      }
+    });
+  }
 };
