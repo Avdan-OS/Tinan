@@ -1,7 +1,7 @@
 {
   "name": "tinan",
   "scripts": {
-    "run": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon src/index.js"
   },
   "repository": {
     "type": "git",
@@ -13,9 +13,11 @@
   },
   "dependencies": {
     "@discordjs/builders": "^0.15.0",
+    "@octokit/webhooks": "^9.26.0",
     "discord.js": "^13.8.0",
     "dotenv": "^16.0.1",
-    "mongoose": "^6.3.6",
+    "eventsource": "^2.0.2",
+    "nodemon": "^2.0.18",
     "octokit": "^1.8.0"
   }
 }
