@@ -4,9 +4,11 @@ const resolve = require('path').resolve
 require('dotenv').config();
 const config = require('../config.json');
 
+const path = '/commands';
+
 module.exports = (client) => {
   const commands = [];
-  const commandFiles = getFiles(resolve("./src/commands/normal"), '.js')
+  const commandFiles = getFiles(`${path}/normal`, '.js');
   const channelRegex = [
     ["964459799817363497", /\*\*Title:\*\* .+\n\*\*Information:\*\* .+/gm],
     ["988920473897279498", /\*\*Title:\*\* .+\n\*\*Information:\*\* .+/gm]
@@ -29,7 +31,23 @@ module.exports = (client) => {
       [['pineapple'], () => message.react('🍍')],
       [['cheese'], () => message.react('🧀')],
       [['forgor'], () => message.react('💀')],
-      [["download avdan os", "avdan os iso"],{embeds: [new MessageEmbed().setDescription("We have not finished developing AvdanOS, so there is not a download yet.\nWe are currently working on the **window manager**.\nSubscribe to [our Youtube channel](https://www.youtube.com/channel/UCKt_7dN4Y7SUy2gMJWf6suA) for updates on our development.").setColor("BLUE")]}],
+      [["download avdan os", "avdan os iso"],{
+        embeds: [
+          new MessageEmbed()
+            .setDescription("We have not finished developing AvdanOS, so there is not a download yet.\nWe are currently working on the **window manager**.\nSubscribe to [our Youtube channel](https://www.youtube.com/channel/UCKt_7dN4Y7SUy2gMJWf6suA) for updates on our development.")
+            .setColor("BLUE")
+          ]
+        }
+      ],
+      [
+        ["how do i become developer", "how do i become a developer"], {
+          embeds: [
+            new MessageEmbed()
+              .setDescription("To join the team please go to #join-the-team, you must meet the requirements specified there.")
+              .setColor("BLUE")
+          ]
+        }
+      ]
     ]
     if (!message.author.bot) {
       if (!message.content.startsWith(process.env.PREFIX)) {
@@ -98,7 +116,7 @@ module.exports = (client) => {
   });
 
   const slashCommands = [];
-  const slashCommandFiles = getFiles(resolve("./src/commands/slash"), '.js')
+  const slashCommandFiles = getFiles(`${path}/slash`, '.js');
   for (const slashCommand of slashCommandFiles) {
     let slashCommandFile = require(slashCommand);
     slashCommands[slashCommandFile.name.toLowerCase()] = slashCommandFile;
