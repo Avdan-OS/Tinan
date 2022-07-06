@@ -18,6 +18,8 @@ module.exports = (client) => {
   global.multiReact = (msg, reactions) => {
     for (const i of reactions) if (i != ' ') msg.react(i)
   }
+  
+  const goosStanding = client.emojis.cache.get("993799647015481397");
 
   for (const command of commandFiles) {
     const split = command.replace(/\\/g, '/').split('/');
@@ -31,6 +33,7 @@ module.exports = (client) => {
       [['pineapple'], () => message.react('🍍')],
       [['cheese'], () => message.react('🧀')],
       [['forgor'], () => message.react('💀')],
+      [['honk'], () => message.react(goosStanding)
       [["download avdan os", "avdan os iso"],{
         embeds: [
           new MessageEmbed()
