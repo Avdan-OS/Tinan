@@ -18,6 +18,7 @@ module.exports = {
         .setFooter({ text: 'Click on an arrow to open the corresponding repository' })
 
       data.data.forEach(dataChildren => {
+        dataChildren.description = dataChildren.description || "N/A"
         embed.addFields(
           { name: `${dataChildren.name}`, value: `[>](https://github.com/Avdan-OS/${dataChildren.name}) ${dataChildren.description}`}
         )
