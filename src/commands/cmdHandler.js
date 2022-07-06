@@ -6,8 +6,6 @@ const config = require('../config.json');
 
 const path = '/commands';
 
-const goosStanding = client.emojis.cache.get("993799647015481397");
-
 module.exports = (client) => {
   const commands = [];
   const commandFiles = getFiles(`${path}/normal`, '.js');
@@ -20,6 +18,8 @@ module.exports = (client) => {
   global.multiReact = (msg, reactions) => {
     for (const i of reactions) if (i != ' ') msg.react(i)
   }
+  
+  const goosStanding = client.emojis.cache.get("993799647015481397");
 
   for (const command of commandFiles) {
     const split = command.replace(/\\/g, '/').split('/');
