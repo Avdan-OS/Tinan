@@ -6,6 +6,8 @@ const config = require('../config.json');
 
 const path = '/commands';
 
+const goosStanding = client.emojis.cache.get("993799647015481397");
+
 module.exports = (client) => {
   const commands = [];
   const commandFiles = getFiles(`${path}/normal`, '.js');
@@ -31,7 +33,7 @@ module.exports = (client) => {
       [['pineapple'], () => message.react('🍍')],
       [['cheese'], () => message.react('🧀')],
       [['forgor'], () => message.react('💀')],
-      [['honk'], () => message.react(":goos_standing:")
+      [['honk'], () => message.react(goosStanding)
       [["download avdan os", "avdan os iso"],{
         embeds: [
           new MessageEmbed()
