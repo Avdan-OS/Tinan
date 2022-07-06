@@ -31,7 +31,7 @@ module.exports = (client) => {
       [['pineapple'], () => message.react('🍍')],
       [['cheese'], () => message.react('🧀')],
       [['forgor'], () => message.react('💀')],
-      [['honk', 'bonk'], () => message.react(":goos_standing:")
+      [['honk'], () => message.react(":goos_standing:")
       [["download avdan os", "avdan os iso"],{
         embeds: [
           new MessageEmbed()
