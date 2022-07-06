@@ -33,7 +33,7 @@ module.exports = (client) => {
       [['pineapple'], () => message.react('🍍')],
       [['cheese'], () => message.react('🧀')],
       [['forgor'], () => message.react('💀')],
-      [['honk'], () => message.react(goosStanding),
+      [['honk'], () => message.react(goosStanding)],
       [["download avdan os", "avdan os iso"],{
         embeds: [
           new MessageEmbed()
