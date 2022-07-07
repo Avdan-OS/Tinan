@@ -30,14 +30,12 @@ module.exports = (client) => {
     
     const extCommands = [
       [['bread'], () => { multiReact(message, '🍞🇧 🇷 🇪 🇦 🇩👍') }],
-      [['pineapple'], () => message.react('🍍')],
+      [['honk'], () => { multiReact(message, 'goosStanding 🇭 🇴 🇳 🇰👍') }],
       [['cheese'], () => message.react('🧀')],
-      [['forgor'], () => message.react('💀')],
-      [['honk'], () => message.react(goosStanding)],
       [["download avdan os", "avdan os iso"],{
         embeds: [
           new MessageEmbed()
-            .setDescription("We have not finished developing AvdanOS, so there is not a download yet.\nWe are currently working on the **window manager**.\nSubscribe to [our Youtube channel](https://www.youtube.com/channel/UCKt_7dN4Y7SUy2gMJWf6suA) for updates on our development.")
+            .setDescription("We have not finished developing AvdanOS, so there is not a download yet.\nWe are currently working on the **window manager**.\nSubscribe to [our Youtube channel](https://www.youtube.com/channel/UCHLCBj83J7bR82HwjhCJusA) for updates on our development.")
             .setColor("BLUE")
           ]
         }
