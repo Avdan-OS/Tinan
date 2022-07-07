@@ -31,6 +31,8 @@ module.exports = (client) => {
     const extCommands = [
       [['bread'], () => { multiReact(message, '🍞🇧 🇷 🇪 🇦 🇩👍') }],
       [['honk'], () => { multiReact(message, 'goosStanding 🇭 🇴 🇳 🇰👍') }],
+      [['pineapple'], () => message.react('🍍')],
+      [['forgor'], () => message.react('💀')],
       [['cheese'], () => message.react('🧀')],
       [["download avdan os", "avdan os iso"],{
         embeds: [
