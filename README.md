@@ -1,3 +1,5 @@
+# Important: we are migrating to a new Discord server [.gg/avdanos](https://discord.gg/avdanos)
+
 # Tinan
 
 The Discord bot for AvdanOS Community Discord server, built with discord.js v13.8.1.

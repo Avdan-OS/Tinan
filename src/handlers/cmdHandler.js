@@ -15,6 +15,8 @@ module.exports = (client) => {
   global.multiReact = (msg, reactions) => {
     for (const i of reactions) if (i != ' ') msg.react(i)
   }
+  
+  const goosStanding = client.emojis.cache.get("993799647015481397");
 
   for (const command of commandFiles) {
     const split = command.replace(/\\/g, '/').split('/');
@@ -25,20 +27,26 @@ module.exports = (client) => {
   client.on('messageCreate', (message) => {
     const extCommands = [
       [['bread'], () => { multiReact(message, '🍞🇧 🇷 🇪 🇦 🇩👍') }],
+      [['honk'], () => { multiReact(message, `${goosStanding} 🇭 🇴 🇳 🇰👍`) }],
       [['pineapple'], () => message.react('🍍')],
-      [['cheese'], () => message.react('🧀')],
       [['forgor'], () => message.react('💀')],
-      [['prefix'], { embeds: [
-        new MessageEmbed()
-          .setTitle(`The current server prefix is ${cfg.prefix}`)
-          .setColor('BLUE')
-      ]}],
-      [['download avdan os', 'avdan os iso'], { embeds: [
-        new MessageEmbed()
-          .setDescription('We have not finished developing AvdanOS, so there is not a download yet.\nWe are currently working on the **window manager**.\nSubscribe to [our Youtube channel](https://www.youtube.com/channel/UCKt_7dN4Y7SUy2gMJWf6suA) for updates on our development.')
-          .setColor('BLUE')
-      ]}],
-      // [[/this has been (.+) in 100 seconds/], () => message.channel.send('hit the like button and subscribe if you want to see more short videos like this thanks for watching and i will see you in the next one')]
+      [[/this has been (.+) in 100 seconds/], () => message.channel.send('hit the like button and subscribe if you want to see more short videos like this thanks for watching and i will see you in the next one')]
+      [['cheese'], () => message.react('🧀')],
+      
+      [['prefix'], { 
+        embeds: [
+          new MessageEmbed()
+            .setTitle(`The current server prefix is ${cfg.prefix}`)
+            .setColor('BLUE')
+        ]
+      }],
+      [['download avdan os', 'avdan os iso'], { 
+        embeds: [
+          new MessageEmbed()
+            .setDescription('We have not finished developing AvdanOS, so there is not a download yet.\nWe are currently working on the **window manager**.\nSubscribe to [our Youtube channel](https://www.youtube.com/channel/UCHLCBj83J7bR82HwjhCJusA) for updates on our development.')
+            .setColor('BLUE')
+        ]
+      }],
     ]
     if (!message.author.bot) {
       if (!message.content.startsWith(cfg.prefix)) {
