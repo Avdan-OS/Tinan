@@ -20,7 +20,7 @@ module.exports = {
       data.data.forEach(dataChildren => {
         dataChildren.description = dataChildren.description || "N/A"
         embed.addFields(
-          { name: `${dataChildren.name}`, value: `[>](https://github.com/Avdan-OS/${dataChildren.name}) ${dataChildren.description}`}
+          { name: `${dataChildren.name}`, value: `[>](https://github.com/Avdan-OS/${dataChildren.name}) ${dataChildren.description}`, inline: true }
         )
       })
       interaction.reply({ embeds: [embed], ephemeral: true });
