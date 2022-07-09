@@ -1,12 +1,14 @@
 const { MessageEmbed } = require('discord.js');
 
 /**
- * @file This is an example of random responses. Normal command edition.
+ * @file This is an example of random responses.
  * @author AvdanOS
  */
 
 module.exports = {
-  callback: (message) => {
+  name: 'randomresponse',
+  description: 'this is a random response example',
+  callback: (interaction) => {
     const messages = [
       'example',
       'wow, this is another message?',
@@ -14,9 +16,9 @@ module.exports = {
     ];
     const title = messages[Math.floor(Math.random() * messages.length)];
     const embed = new MessageEmbed()
-      .setTitle(title)
+      .setTitle(`${title}`)
       .setColor('BLUE')
 
-    message.channel.send({ embeds: [embed] });
+    interaction.reply({ embeds: [embed], ephemeral: true });
   }
 };

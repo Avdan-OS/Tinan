@@ -28,11 +28,11 @@ Step 4: Click on the "Bot" button on the left side of your screen and create a n
 
 ### Step 5. Invite your bot to your server.
 
-Step 5.1: Click on "OAuth2", afterwards "URL Generator". Select `bot` and `applications.commands`.
+Step 5.1: Click on "OAuth2", afterward "URL Generator". Select `bot` and `applications.commands`.
 
 Step 5.2: Select "Administrator" in the list of bot permissions.
 
-Step 5.3: Copy the link in the bottom of the page and paste it into your search bar. Select the server where you want your bot to be in the dropdown list.
+Step 5.3: Copy the link at the bottom of the page and paste it into your search bar. Select the server where you want your bot to be in the dropdown list.
 
 Step 6: Reset your bot's token and copy it. It will be used later.
 
@@ -56,7 +56,7 @@ Step 10: Paste the channel's ID into your config.json file.
 
 Step 11: In your terminal, run `npm install`. It will install all the modules needed to run the bot.
 
-Step 12: Run `cd src` and afterwards `node .` to launch the bot.
+Step 12: Run `cd src` and afterward `node .` to launch the bot.
 
 ## How to make commands
 

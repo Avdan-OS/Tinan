@@ -1,7 +1,7 @@
 const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 
 /**
- * @file This command is an example that includes creating and responding to buttons. Slash command edition.
+ * @file This is an example that includes creating and responding to buttons.
  * @author AvdanOS
  */
 

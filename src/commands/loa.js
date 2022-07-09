@@ -1,4 +1,4 @@
-const cfg = require('../../config.json');
+const cfg = require('../config.json');
 const { MessageEmbed, MessageActionRow, MessageButton, Permissions } = require('discord.js');
 
 module.exports = {
@@ -42,11 +42,13 @@ module.exports = {
 			description: 'Return from LOA',
 		},
 	],
+
 	callback: async (interaction) => {
 		const options = interaction.options;
+
 		if (options._subcommand === 'apply') {
-			if (!interaction.member.roles.cache.find((r) => r.name === 'Developer')) {
-				return interaction.reply({ content: 'You need the Developer role to apply for LOA', ephemeral: true });
+			if (!interaction.member.roles.cache.find((r) => r.name === 'Developer' || 'Designer')) {
+				return interaction.reply({ content: 'You need the **Developer** or the **Designer** role to apply for LOA', ephemeral: true });
 			}
 
 			if (interaction.member.roles.cache.find((r) => r.name === '[LOA]')) {
@@ -57,35 +59,17 @@ module.exports = {
 			const loaRole = interaction.guild.roles.cache.find((r) => r.name === '[LOA]');
 			const loaChannel = interaction.guild.channels.cache.find((c) => c.id === cfg.loaReports);
 
-			const embed = new MessageEmbed({
-				title: `LOA pending`,
-				color: '#0099ff',
-				fields: [
-					{
-						name: 'GitHub username',
-						value: options.getString('github'),
-						inline: true,
-					},
-					{
-						name: 'Figma Username',
-						value: options.getString('figma'),
-						inline: true,
-					},
-					{
-						name: 'Reason',
-						value: options.getString('reason'),
-						inline: true,
-					},
-					{
-						name: 'Return',
-						value: options.getString('return'),
-						inline: true,
-					},
-				],
-			}).setAuthor({
-				name: interaction.member.user.tag,
-				iconURL: interaction.member.displayAvatarURL()
-			});
+			const embed = new MessageEmbed()
+				.setTitle('LOA pending.')
+				.setColor('#0099ff')
+				.setFields(
+					{ name: 'GitHub username', value: options.getString('github'), inline: true },
+					{ name: 'Figma Username', value: options.getString('figma'), inline: true },
+					{ name: 'Reason', value: options.getString('reason'), inline: true },
+					{ name: 'Return', value: options.getString('return'), inline: true },
+				)
+				.setAuthor({ name: interaction.member.user.tag, iconURL: interaction.member.displayAvatarURL() });
+			
 			const buttons = new MessageActionRow().addComponents(
 				new MessageButton()
 				  .setCustomId('accept')
@@ -95,7 +79,8 @@ module.exports = {
 				  .setCustomId('deny')
 				  .setLabel('Deny')
 				  .setStyle('SECONDARY'),
-			  )
+			)
+			
 			const filter = (ButtonInteraction) => { return ButtonInteraction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR); }
 			loaChannel.send({ embeds: [embed], components: [buttons] }).then( message => {
 				interaction.reply({ content: 'LOA asked successfully.', ephemeral: true });
@@ -115,12 +100,12 @@ module.exports = {
 				})
 			});
 		} else if (options._subcommand === 'return') {
-			if (!interaction.member.roles.cache.find((r) => r.name === 'Developer')) {
-				return interaction.reply({ content: 'You need the Developer role to return from LOA', ephemeral: true });
+			if (!interaction.member.roles.cache.find((r) => r.name === 'Developer' || 'Designer')) {
+				return interaction.reply({ content: 'You need the **Developer** or the **Designer** role to return from LOA.', ephemeral: true });
 			}
 
 			if (!interaction.member.roles.cache.find((r) => r.name === '[LOA]')) {
-				return interaction.reply({ content: 'You are not set to LOA', ephemeral: true });
+				return interaction.reply({ content: 'You are not set to LOA.', ephemeral: true });
 			}
 
 			const dev = interaction.member;
@@ -128,7 +113,7 @@ module.exports = {
 			const loaChannel = interaction.guild.channels.cache.find((c) => c.id === cfg.loaReports);
 
 			const embed = new MessageEmbed({
-				title: `Returned from their LOA`,
+				title: `Returned from their LOA.`,
 				color: '#0099ff',
 			}).setAuthor({
 				name: interaction.member.user.tag,
@@ -139,7 +124,7 @@ module.exports = {
 				await dev.roles.remove(loaRole);
 				await loaChannel.send({ embeds: [embed] });
 
-				return interaction.reply({ content: 'Returned from LOA\nℹ It seems that your nickname was altered during your LOA, no actions will be executed on your nickname', ephemeral: true });
+				return interaction.reply({ content: 'Returned from LOA.\nℹ It seems that your nickname was altered during your LOA, no actions will be executed on your nickname.', ephemeral: true });
 			}
 
 			try {
