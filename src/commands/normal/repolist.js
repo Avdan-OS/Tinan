@@ -3,9 +3,7 @@ const { Octokit } = require('octokit');
 require('dotenv').config();
 
 module.exports = {
-  name: 'repolist',
-  description: 'This is a test command that lists repositories in the Avdan-OS organisation.',
-  callback: async (interaction) => {
+  callback: async (message) => {
     const octokit = new Octokit({ auth: process.env.GITHUB_API_KEY });
 
     await octokit.request('GET /orgs/{org}/repos', {
@@ -23,7 +21,7 @@ module.exports = {
           { name: `${dataChildren.name}`, value: `[>](https://github.com/Avdan-OS/${dataChildren.name}) ${dataChildren.description}`, inline: true }
         )
       })
-      interaction.reply({ embeds: [embed], ephemeral: true });
+      message.channel.send({ embeds: [embed] });
     });
   }
 };
