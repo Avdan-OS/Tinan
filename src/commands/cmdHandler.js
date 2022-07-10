@@ -5,7 +5,7 @@ const config = require('../config.json');
 const fs = require("fs");
 const path = require("path");
 
-const commandPath = '/src/commands';
+const commandPath = './commands';
 
 module.exports = async (client) => {
   const commands = new Collection();
