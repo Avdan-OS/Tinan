@@ -45,6 +45,7 @@ module.exports = async (client) => {
       [['pineapple'], () => message.react('🍍')],
       [['forgor'], () => message.react('💀')],
       [['cheese'], () => message.react('🧀')],
+      [['oink'], () => message.react('🐷')],
       [["download avdan os", "avdan os iso"], {
         embeds: [
           new MessageEmbed()
