@@ -6,7 +6,7 @@ module.exports = {
   callback: (interaction) => {
     const embed = new MessageEmbed()
       .setTitle('Help')
-      .setDescription('There may be bugs, if you find them: ping goos#1337.')
+      .setDescription('There may be bugs, if you find them: ping <@725985503177867295>.')
       .addFields(
         { name: 'Prefix', value: process.env.PREFIX },
         { name: 'Test', value: 'repolist, prefix, poll' }
