@@ -42,6 +42,9 @@ module.exports = async (client) => {
       [['honk'], async () => {
         await multiReact(message, goosStanding, `🇭🇴🇳🇰👍`)
       }],
+      [['akane', 'akane cat'], async () => {
+        await multireact(message, `🅰️🇰🇦🇳 🇪🐱`)
+      }],
       [['pineapple'], () => message.react('🍍')],
       [['forgor'], () => message.react('💀')],
       [['cheese'], () => message.react('🧀')],
