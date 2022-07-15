@@ -7,7 +7,7 @@ module.exports = {
       .setDescription('There may be bugs, if you find them report on GitHub')
       .addFields(
         { name: 'Prefix', value: process.env.PREFIX },
-        { name: 'Test', value: 'repolist, prefix, poll' }
+        { name: 'Commands', value: 'repolist, prefix, poll' }
       )
       .setColor('BLUE')
 
