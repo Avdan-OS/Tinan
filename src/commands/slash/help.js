@@ -9,7 +9,7 @@ module.exports = {
       .setDescription('There may be bugs, if you find them: ping <@725985503177867295>.')
       .addFields(
         { name: 'Prefix', value: process.env.PREFIX },
-        { name: 'Commands', value: 'LOA Apply, LOA Return, Poll Create, Poll End, Prefix, RepoList' }
+        { name: 'Commands', value: 'LOA Apply, LOA Return, Poll Create, Poll End, Prefix, repolist' }
       )
       .setColor('BLUE')
 
