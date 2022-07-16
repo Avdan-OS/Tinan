@@ -67,6 +67,15 @@ module.exports = async (client) => {
       }
       ]
     ]
+
+    if (
+      message.content.startsWith('this has been') &&
+      message.content.endsWith('in 100 seconds') &&
+      message.content != 'this has been in 100 seconds'
+    ) {
+      message.channel.send('hit the like button if you want to see more short videos like this thanks for watching and I will see you in the next one')
+    }
+
     if (!message.author.bot) {
       if (!message.content.toLowerCase().startsWith(process.env.PREFIX)) {
 
