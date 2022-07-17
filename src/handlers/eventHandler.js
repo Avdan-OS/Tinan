@@ -1,9 +1,8 @@
 const getFiles = require('../utils/getFiles');
 
 module.exports = (client) => {
-  const path = '\\events';
   const events = [];
-  const eventFiles = getFiles(`${path}`, '.js');
+  const eventFiles = getFiles('/events', '.js');
 
   for (const eventFile of eventFiles) {
     const event = require(eventFile);
