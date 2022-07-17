@@ -10,8 +10,8 @@ module.exports = {
 		  description: 'Create a poll',
 		  options: [
         {
-          name: 'subject',
-          description: 'Subject of the poll',
+          name: 'title',
+          description: 'Title of the poll',
           required: true,
           type: Constants.ApplicationCommandOptionTypes.STRING
         },
@@ -114,7 +114,7 @@ module.exports = {
     const pollId = Math.floor(Math.random() * 89999) + 10000;
     const timestamp = parseInt(Date.now().toString().substring(0,10)) + interaction.options.getInteger('time') + 1
     let embed = new MessageEmbed({
-      title: `Poll: ${interaction.options.getString('subject')}`,
+      title: `Poll: ${interaction.options.getString('title')}`,
       description: `Poll ends <t:${timestamp}:R>`,
       color: 'BLUE',
     });
