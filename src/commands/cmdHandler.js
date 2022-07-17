@@ -15,7 +15,13 @@ module.exports = async (client) => {
     for (let i of reactions) {
         if (typeof i !== 'object') {
           for (let reaction of i) {
-            if(reaction !== " ") await msg.react(reaction);
+            if (reaction !== " ") {
+              try {
+                await msg.react(reaction);
+              } catch(A) {}
+              
+
+            }
           }
         } else {
             await msg.react(i);
@@ -43,7 +49,7 @@ module.exports = async (client) => {
         await multiReact(message, goosStanding, `🇭🇴🇳🇰👍`)
       }],
       [['akane', 'akane cat'], async () => {
-        await multireact(message, `🅰️🇰🇦🇳 🇪🐱`)
+        await multiReact(message, `🅰️ 🇰 🇦 🇳 🇪 🐱`)
       }],
       [['pineapple'], () => message.react('🍍')],
       [['forgor'], () => message.react('💀')],
@@ -87,7 +93,7 @@ module.exports = async (client) => {
                   else if (typeof value === 'object' || typeof value === 'string') {
                     if (value.embeds) {
                       for (const embed of value.embeds) {
-                        message.reply({embed})
+                        message.reply({embeds: [embed]})
                       }
                     }
                   }
