@@ -1,4 +1,4 @@
-const { MessageEmbed, Constants } = require('discord.js');
+const { EmbedBuilder, ApplicationCommandOptionType, Colors } = require('discord.js');
 
 /**
  * @file This is an example of options.
@@ -12,7 +12,7 @@ module.exports = {
     {
       name: 'option',
       description: 'option',
-      type: Constants.ApplicationCommandOptionTypes.STRING,
+      type: ApplicationCommandOptionType.String,
       required: true, // or false
       choices: [
         {
@@ -28,14 +28,14 @@ module.exports = {
   ],
   callback: (interaction) => {
     const option = interaction.options.getString('option');
-    let embed = new MessageEmbed()
+    let embed = new EmbedBuilder()
     
     if (option == 'yes') {
       embed.setTitle('you like option')
-      embed.setColor('GREEN')
+      embed.setColor(Colors.Green)
     } else {
       embed.setTitle('you hate option :<')
-      embed.setColor('RED')
+      embed.setColor(Colors.Red)
     }
     interaction.reply({ embeds: [embed], ephemeral: true });
   }  

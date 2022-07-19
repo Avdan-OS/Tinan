@@ -1,96 +1,60 @@
-const { MessageEmbed, MessageActionRow, MessageButton, Constants, Permissions } = require('discord.js');
+const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ApplicationCommandOptionType, ButtonStyle, PermissionsBitField, Colors } = require('discord.js');
 
 module.exports = {
   name: 'poll',
-  description: 'Poll util management',
+  description: 'Creates a poll. (manager only)',
   options: [
     {
-      type: 'SUB_COMMAND',
+      type: ApplicationCommandOptionType.Subcommand,
 		  name: 'create',
 		  description: 'Create a poll',
 		  options: [
         {
-          name: 'subject',
-          description: 'Subject of the poll',
+          name: 'title',
+          description: 'Title of the poll',
           required: true,
-          type: Constants.ApplicationCommandOptionTypes.STRING
+          type: ApplicationCommandOptionType.String,
         },
         {
           name: 'time',
           description: 'Duration of the poll (in seconds)',
           required: true,
-          type: Constants.ApplicationCommandOptionTypes.INTEGER
+          type: ApplicationCommandOptionType.Integer,
         },
         {
-          name: '1',
-          description: 'Choice 1',
-          required: false,
-          type: Constants.ApplicationCommandOptionTypes.STRING
+          name: 'button-1',
+          description: 'Button 1',
+          required: true,
+          type: ApplicationCommandOptionType.String,
         },
         {
-          name: '2',
-          description: 'Choice 2',
-          required: false,
-          type: Constants.ApplicationCommandOptionTypes.STRING
+          name: 'button-2',
+          description: 'Button 2',
+          required: true,
+          type: ApplicationCommandOptionType.String,
         },
         {
-          name: '3',
-          description: 'Choice 3',
+          name: 'button-3',
+          description: 'Button 3',
           required: false,
-          type: Constants.ApplicationCommandOptionTypes.STRING
+          type: ApplicationCommandOptionType.String,
         },
         {
-          name: '4',
-          description: 'Choice 4',
+          name: 'button-4',
+          description: 'Button 4',
           required: false,
-          type: Constants.ApplicationCommandOptionTypes.STRING
+          type: ApplicationCommandOptionType.String,
         },
         {
-          name: '5',
-          description: 'Choice 5',
+          name: 'button-5',
+          description: 'Button 5',
           required: false,
-          type: Constants.ApplicationCommandOptionTypes.STRING
+          type: ApplicationCommandOptionType.String,
         },
-        {
-          name: '6',
-          description: 'Choice 6',
-          required: false,
-          type: Constants.ApplicationCommandOptionTypes.STRING
-        },
-        {
-          name: '7',
-          description: 'Choice 7',
-          required: false,
-          type: Constants.ApplicationCommandOptionTypes.STRING
-        },
-        {
-          name: '8',
-          description: 'Choice 8',
-          required: false,
-          type: Constants.ApplicationCommandOptionTypes.STRING
-        },
-        {
-          name: '9',
-          description: 'Choice 9',
-          required: false,
-          type: Constants.ApplicationCommandOptionTypes.STRING
-        },
-        {
-          name: '10',
-          description: 'Choice 10',
-          required: false,
-          type: Constants.ApplicationCommandOptionTypes.STRING
-        },
-        {
-          name: 'mention',
-          description: 'Mention everyone (default: False)',
-          required: false,
-          type: Constants.ApplicationCommandOptionTypes.BOOLEAN
-        }
       ]
     },
     {
-			type: 'SUB_COMMAND',
+			type: ApplicationCommandOptionType.Subcommand,
 			name: 'end',
 			description: 'End a poll',
       options: [
@@ -98,13 +62,13 @@ module.exports = {
           name: 'id',
           description: 'ID of the poll',
           required: true,
-          type: Constants.ApplicationCommandOptionTypes.INTEGER
+          type: ApplicationCommandOptionType.Integer,
         },
         {
           name: 'reason',
           description: 'Reason for ending the poll',
           required: false,
-          type: Constants.ApplicationCommandOptionTypes.STRING
+          type: ApplicationCommandOptionType.String,
         },
       ],
 		},
@@ -113,48 +77,42 @@ module.exports = {
   callback: (interaction) => {
     const pollId = Math.floor(Math.random() * 89999) + 10000;
     const timestamp = parseInt(Date.now().toString().substring(0,10)) + interaction.options.getInteger('time') + 1
-    let embed = new MessageEmbed({
-      title: `Poll: ${interaction.options.getString('subject')}`,
-      description: `Poll ends <t:${timestamp}:R>`,
-      color: 'BLUE',
-    });
-    if (interaction.member.permissions.has(Permissions.FLAGS.MANAGE_EVENTS)) {
+    let embed = new EmbedBuilder()
+      .setTitle(`Poll: ${interaction.options.getString('title')}`)
+      .setDescription(`Poll ends in <t:${timestamp}:R>`)
+      .setColor(Colors.Blue)
+
+    if (interaction.member.permissions.has(PermissionsBitField.Flags.ManageEvents)) {
       if (interaction.options._subcommand == 'create') {
-        embed.addFields([
-          {
-            name: 'Total votes',
-            value: '0',
-            inline: true,
-          }
-        ])
+        embed.addFields([{ name: 'Total votes', value: '0', inline: true }])
         embed.setAuthor({
           name: interaction.member.displayName,
           iconURL: interaction.member.displayAvatarURL()
         })
         embed.setFooter({ text: 'Poll id: ' + pollId.toString() })
+        
         const getButton = (buttonID) => interaction.options.getString(buttonID);
-        const row1 = new MessageActionRow();
-        const row2 = new MessageActionRow();
-
+        const row1 = new ActionRowBuilder();
+        const row2 = new ActionRowBuilder();
 
         for (let i = 1; i < 6; i++) { 
           if (getButton(i.toString())) {
             row1.addComponents(
-              new MessageButton()
+              new ButtonBuilder()
                 .setCustomId('poll_' + pollId.toString() + '_' + i.toString())
                 .setLabel(getButton(i.toString()))
-                .setStyle('SECONDARY')
-            ) 
+                .setStyle(ButtonStyle.Secondary),
+            )
           }
         }
 
         for (let i = 6; i < 11; i++) { 
           if (getButton(i.toString())) {
             row2.addComponents(
-              new MessageButton()
+              new ButtonBuilder()
               .setCustomId('poll_' + pollId.toString() + '_' + i.toString())
               .setLabel(getButton(i.toString()))
-              .setStyle('SECONDARY')
+              .setStyle(ButtonStyle.Secondary),
             )
           }
         }
@@ -165,16 +123,22 @@ module.exports = {
         global.getLabel = function (pollID, buttonID) { if (pollID == pollId) return interaction.options.getString(buttonID) };
         let mention = ' ';
         if (interaction.options.getBoolean('mention')) mention = '@everyone';
+        
         interaction.channel.send({ content: mention, embeds: [embed], components: rows }).then(message => {
-          interaction.reply({ content: 'The poll has been created', ephemeral: true })
+          const embed = new EmbedBuilder()
+            .setTitle('The poll has been created')
+            .setColor(Colors.Green)
+          interaction.reply({ embeds: [embed], ephemeral: true });
           const collector = interaction.channel.createMessageComponentCollector({ time: interaction.options.getInteger('time') * 1000 });
           collector.client.on('interactionCreate', (interact) => {
-            if (interact.isCommand()) if (interact.commandName == 'poll') if (interact.options._subcommand == 'end') if (interact.options.getInteger('id') == pollId) collector.stop()
+            if (interact.isCommand()) if (interact.commandName == 'poll') if (interact.options._subcommand == 'end') if (interact.options.getInteger('id') == pollId) collector.stop();
           })
+
           collector.on('collect', () => {
             embed.fields[0].value = Object.values(pollsList[pollId]).length.toString()
             message.edit({ embeds: [embed] })
           });
+
           collector.on('end', () => {
             if (pollsList[pollId]) {
               let winners = [];
@@ -203,27 +167,29 @@ module.exports = {
         });
       } else {
         embed.setTitle(`Poll \`${interaction.options.getInteger('id').toString()}\` was terminated by \`${interaction.member.user.tag}\``)
-        if (interaction.options.getString('reason')) embed.addFields([{ name: 'Reason',  value: interaction.options.getString('reason'), inline: true }]).setDescription('')
-        else embed.setDescription('No reason specified')
-        interaction.reply({ embeds: [embed] })
+        if (interaction.options.getString('reason')) {
+          embed.addFields([{ name: 'Reason',  value: interaction.options.getString('reason'), inline: true }])
+          embed.setDescription('')
+        } else embed.setDescription('No reason specified');
+        interaction.reply({ embeds: [embed] });
       }
     } else {
       embed.setTitle(`Error`)
       embed.setDescription(`You don't have sufficient permissions to execute that command`)
-      embed.setColor('RED')
+      embed.setColor(Colors.Red)
       interaction.reply({ embeds: [embed], ephemeral: true });
     }
     interaction.client.on('interactionCreate', (interact) => {
       if (interact.isButton()) {
         if (interact.customId.substring(0,4) == 'poll') {
           const pollId = interact.customId.substring(5, 10);
-          let embed = new MessageEmbed()
-          if (global.pollsList[pollId][interact.user.id]) embed.setTitle('You have already voted for this poll').setColor('RED');
+          let embed = new EmbedBuilder()
+          if (global.pollsList[pollId][interact.user.id]) embed.setTitle('You have already voted for this poll').setColor(Colors.Red);
           else {
             global.pollsList[pollId][interact.user.id] = interact.customId;
-            embed.setTitle(`You successfully voted for **${getLabel(pollId, interact.customId.substring(11,13))}**`).setColor('GREEN');
+            embed.setTitle(`You successfully voted for **${getLabel(pollId, interact.customId.substring(11,13))}**`).setColor(Colors.Green);
           }
-          return interact.reply({embeds: [embed], ephemeral: true });
+          return interact.reply({ embeds: [embed], ephemeral: true });
         } else return;
       } else return;
     });

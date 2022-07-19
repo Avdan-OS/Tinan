@@ -9,8 +9,8 @@
     "url": "https://github.com/Avdan-OS/Tinan/issues"
   },
   "dependencies": {
-    "discord.js": "^13.8.1",
+    "discord.js": "^14.0.2",
     "dotenv": "^16.0.1",
-    "octokit": "^1.8.1"
+    "octokit": "^2.0.4"
   }
 }

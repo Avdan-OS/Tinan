@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder, Colors } = require('discord.js');
 
 /**
  * @file This is an example of random responses.
@@ -15,9 +15,9 @@ module.exports = {
       'hello world'
     ];
     const title = messages[Math.floor(Math.random() * messages.length)];
-    const embed = new MessageEmbed()
+    const embed = new EmbedBuilder()
       .setTitle(`${title}`)
-      .setColor('BLUE')
+      .setColor(Colors.Blue)
 
     interaction.reply({ embeds: [embed], ephemeral: true });
   }

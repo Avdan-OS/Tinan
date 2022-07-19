@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder, Colors } = require('discord.js');
 
 /**
  * @file This is an example of an embed.
@@ -9,15 +9,15 @@ module.exports = {
   name: 'embed',
   description: 'this is an embed example',
   callback: (interaction) => {
-    const embed = new MessageEmbed()
+    const embed = new EmbedBuilder()
       .setTitle('example')
       .setDescription('this is an example of an embed')
-      .addFields(
+      .addFields([
         { name: 'field example 1', value: 'field example 1' },
-        { name: 'field example 2', value: 'field example 2' }
-      )
+        { name: 'field example 2', value: 'field example 2' },
+      ])
       .setFooter({ text: 'footer example' })
-      .setColor('BLUE')
+      .setColor(Colors.Blue)
     
     interaction.reply({ embeds: [embed], ephemeral: true });
   }  

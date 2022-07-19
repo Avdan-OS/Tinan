@@ -8,11 +8,11 @@ The bot is getting rewritten in TypeScript, so it's also strongly recommended fo
 
 For code convention:
 
-- 2 space indent, no tab, 
+- 2 space indent, no tab.
 
-- const by default and let for reassignable
+- const by default and let for reassignable.
 
-- Be CaReFuL_WithHow-youName VARIABLES.
+- Use SCREAMING_SNAKE_CASE naming for const and camelCase naming for let and var.
 
 ## Forking
 
@@ -40,23 +40,27 @@ Step 6: Reset your bot's token and copy it. It will be used later.
 
 # **Step 7: .env magic (huge for devs to not add it into the repo)**
 
-## **Step 7.1: Inside the `src` folder, make a `.env` file.**
+## **Step 7.1: Inside the *`src`* folder, make a *`.env`* file.**
 
-## **Step 7.2: Type `DISCORD_TOKEN=your bot token` and `PREFIX=your prefix`**
+## **Step 7.2: Type *`DISCORD_TOKEN='your bot token'`***
 
-## Changing config.json
+## Step 8: Creating config.json
 
-Step 8: Create a channel (or channels) in your server and name it/them anything you want.
+Step 8.1: Set the prefix you want. (for example: t!)
+
+Step 9: In your terminal, run `npm install`. It will install all the modules needed to run the bot.
+
+Step 10: Run `cd src` and afterward `node .` to launch the bot.
+
+## Optional config.json stuff
+
+Step 1: Create a channel (or channels) in your server and name it/them anything you want.
 
 If you haven't enabled Developer Mode, you can do so by going into Settings > Advanced > Developer Mode.
 
-Step 9: Copy your channel's ID by right clicking on it and selecting `Copy ID`.
+Step 2: Copy your channel's ID by right clicking on it and selecting `Copy ID`.
 
-Step 10: Paste the channel's ID into your config.json file.
-
-Step 11: In your terminal, run `npm install`. It will install all the modules needed to run the bot.
-
-Step 12: Run `cd src` and afterward `node .` to launch the bot.
+Step 3: Paste the channel's ID into your config.json file.
 
 ## How to make commands
 

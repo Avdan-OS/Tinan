@@ -1,8 +1,10 @@
 # Important: we are migrating to a new [Discord server.](https://discord.gg/avdanos)
 
+# Notice: Pull Requests on this repository won't be reviewed often due to the main focus being the Desktop Environment.
+
 # Tinan
 
-The Discord bot for the [AvdanOS Community Discord server](https://discord.gg/avdanos), built with discord.js v13.8.1.
+The Discord bot for the [AvdanOS Community Discord server](https://discord.gg/avdanos), built with discord.js v14.0.2.
 
 <div align="center">
 
@@ -15,7 +17,7 @@ The Discord bot for the [AvdanOS Community Discord server](https://discord.gg/av
 
 # Current state
 
-Currently, we are planning to rewrite the bot to TypeScript.
+Currently, we are rewriting the bot to TypeScript.
 
 # Contributing
 
