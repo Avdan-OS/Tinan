@@ -1,20 +1,21 @@
-const { Client, Intents } = require('discord.js');
+const { Client, GatewayIntentBits, ActivityType } = require('discord.js');
 require('dotenv').config();
-const commands = require('./commands/cmdHandler');
+const events = require('./handlers/eventHandler');
+
 const client = new Client({
+  presence: {
+    activities: [{
+      name: 'discord.gg/avdanos',
+      type: ActivityType.Watching,
+    }],
+  },
 	intents: [
-    Intents.FLAGS.GUILDS,
-    Intents.FLAGS.GUILD_MESSAGES,
-  ]
+    GatewayIntentBits.MessageContent,
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+  ],
 });
 module.exports = client;
+events(client);
 
-client.on('ready', () => {
-  commands(client);
-
-  client.user.setPresence({ activities: [{ name: 'discord.gg/avdanos', type: 'WATCHING' }] });
-	console.log('Start completed.');
-});
 client.login(process.env.DISCORD_TOKEN);
-
-

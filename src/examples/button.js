@@ -1,28 +1,28 @@
-const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
+const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors } = require('discord.js');
 
 /**
- * @file This command is an example that includes creating and responding to buttons. Slash command edition.
- * @author Serge
+ * @file This is an example that includes creating and responding to buttons.
+ * @author AvdanOS
  */
 
 module.exports = {
   name: 'button',
   description: 'this is an example for buttons',
   callback: (interaction) => {
-    let embed = new MessageEmbed()
+    let embed = new EmbedBuilder()
       .setTitle('example')
       .setDescription('this is an example for buttons')
-      .setColor('BLUE')
+      .setColor(Colors.Blue)
 
-    const buttons = new MessageActionRow().addComponents(
-      new MessageButton()
+    const buttons = new ActionRowBuilder().addComponents(
+      new ButtonBuilder()
         .setCustomId('primary')
         .setLabel('example of a primary button')
-        .setStyle('PRIMARY'),
-      new MessageButton()
+        .setStyle(ButtonStyle.Primary),
+      new ButtonBuilder()
         .setCustomId('secondary')
         .setLabel('example of a secondary button')
-        .setStyle('SECONDARY'),
+        .setStyle(ButtonStyle.Secondary),
     )
 
     interaction.reply({ embeds: [embed], components: [buttons], ephemeral: true });

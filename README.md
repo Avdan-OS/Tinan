@@ -1,41 +1,24 @@
-# Important: we are migrating to a new Discord server [.gg/avdanos](https://discord.gg/avdanos)
+# Important: we are migrating to a new [Discord server.](https://discord.gg/avdanos)
 
 # Notice: Pull Requests on this repository won't be reviewed often due to the main focus being the Desktop Environment.
 
 # Tinan
-The Discord Bot for the AvdanOS Community Discord server, made using discord.js v13.8.
-# How to contribute
-## Forking
-Step 1: Make a contribution fork of this repository.
-## Setting up a Discord bot
-Step 2: Go to the [Discord Developer Portal](https://discord.com/developers/applications) and log in with your account.
 
-Step 3: Click on the "New Application" button near your profile picture on the upper right side of your screen and create a new application. Name it anything you want.
+The Discord bot for the [AvdanOS Community Discord server](https://discord.gg/avdanos), built with discord.js v14.0.2.
 
-Step 4: Click on the "Bot" button on the left side of your screen and create a new bot.
+<div align="center">
 
-### Step 5. Invite your bot to your server.
-Step 5.1: Click on "OAuth2", afterward "URL Generator". Select `bot` and `applications.commands`.
+![Banner](https://raw.githubusercontent.com/Avdan-OS/.github/main/banner/Tinan.png)
 
-Step 5.2: Select "Administrator" in the list of bot permissions.
+![yes](https://img.shields.io/badge/Node-%3E%3D16.9-informational)
+![yes1](https://img.shields.io/badge/Notice-NO%20COMMIT%2C%20PR%20ONLY-critical)
 
-Step 5.3: Copy the link at the bottom of the page and paste it into your search bar. Select the server where you want your bot to be in the dropdown list.
+</div>
 
-Step 6: Reset your bot's token and copy it. It will be used later.
-## Making it work
-Step 7: Inside the `src` folder, make a `.env` file, and type `DISCORD_TOKEN=your token` and `PREFIX=your prefix`
+# Current state
 
-### Step 8. Get your Discord server ID
-Step 8.1: Enable developer mode by going into Settings (near your profile picture at the bottom) > Advanced > Developer Mode.
+Currently, we are rewriting the bot to TypeScript.
 
-Step 8.2: Copy your server ID by right clicking the server icon and clicking "Copy ID".
+# Contributing
 
-Step 9: Inside the src > commands folder, open `cmdHandler.js` and in the 57th line, replace the number in a string with your ID.
-
-Step 10: In your terminal, run `npm install`. It will install all the modules needed to run the bot.
-
-Step 11: Run `cd src` and afterward `node .` to launch the bot.
-## How to make commands
-Step 12: In the commands folder, there are 2 `example.js` files. You can use them as a reference to build new commands.
-## Pull requests
-Step 13: Remember to put a short and concise list of changes to make the review process easier.
+See `CONTRIBUTING.md` for contributing guidelines.

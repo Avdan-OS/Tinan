@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder, Colors } = require('discord.js');
 const { Octokit } = require('octokit');
 require('dotenv').config();
 
@@ -8,20 +8,18 @@ module.exports = {
   callback: async (interaction) => {
     const octokit = new Octokit({ auth: process.env.GITHUB_API_KEY });
 
-    await octokit.request('GET /orgs/{org}/repos', {
-      org: 'Avdan-OS'
-    })
+    await octokit.request('GET /orgs/{org}/repos', { org: 'Avdan-OS'})
     .then((data) => {
-      let embed = new MessageEmbed()
+      let embed = new EmbedBuilder()
         .setTitle('Repository list')
-        .setColor('BLUE')
+        .setColor(Colors.Blue)
         .setFooter({ text: 'Click on an arrow to open the corresponding repository' })
 
       data.data.forEach(dataChildren => {
-        dataChildren.description = dataChildren.description || "N/A"
-        embed.addFields(
+        dataChildren.description = dataChildren.description || "N/A";
+        embed.addFields([
           { name: `${dataChildren.name}`, value: `[>](https://github.com/Avdan-OS/${dataChildren.name}) ${dataChildren.description}`, inline: true }
-        )
+        ])
       })
       interaction.reply({ embeds: [embed], ephemeral: true });
     });
