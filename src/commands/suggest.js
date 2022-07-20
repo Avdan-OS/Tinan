@@ -1,40 +1,42 @@
-const { MessageEmbed, Constants } = require('discord.js');
+const { EmbedBuilder, ApplicationCommandOptionType, Colors } = require('discord.js');
 
 module.exports = {
   name: 'suggest',
   description: 'Sends your idea',
-  options: [{
+  options: [
+    {
       name: 'title',
       description: 'Title of your suggestion',
       required: true,
-      type: Constants.ApplicationCommandOptionTypes.STRING
-    }, {
+      type: ApplicationCommandOptionType.String,
+    }, 
+    {
       name: 'description',
       description: 'Description of your suggestion',
       required: true,
-      type: Constants.ApplicationCommandOptionTypes.STRING
-    }],
-  callback: async (interaction) => {
-    title = interaction.options.getString('title')
-    text = interaction.options.getString('description')
+      type: ApplicationCommandOptionType.String,
+    },
+  ],
 
-    ideaEmbed = new MessageEmbed()
-      .setAuthor({name: interaction.user.username, iconURL: interaction.user.avatarURL()})
+  callback: async (interaction) => {
+    const title = interaction.options.getString('title');
+    const text = interaction.options.getString('description');
+
+    const ideaEmbed = new EmbedBuilder()
+      .setAuthor({ name: interaction.user.username, iconURL: interaction.user.avatarURL() })
       .setTitle(title)
       .setDescription(text)
-      .setColor('BLUE')
+      .setColor(Colors.Blue)
 
-    channel = interaction.guild.channels.cache.find(cnl => cnl.id == '993466949889703996')
-    msg = await channel.send({embeds: [ideaEmbed]})
+    const channel = interaction.guild.channels.cache.find(cnl => cnl.id === '993466949889703996');
+    const msg = await channel.send({ embeds: [ideaEmbed] });
     
-    msg.startThread({
-      name: title,
-    });
+    msg.startThread({ name: title });
 
-    embed = new MessageEmbed()
+    const embed = new EmbedBuilder()
       .setTitle('Your suggestion was sent')
-      .setColor('BLUE')
+      .setColor(Colors.Blue)
 
-    interaction.reply({embeds: [embed], ephemeral: true})
+    interaction.reply({ embeds: [embed], ephemeral: true })
   }
 }
