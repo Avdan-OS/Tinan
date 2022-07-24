@@ -42,6 +42,9 @@ module.exports = async (client) => {
     const goosStanding = await message.guild.emojis.fetch("993799647015481397").catch(() => { return ":duck:" });
 
     const extCommands = [
+      [['bread bot'], async () => {
+        await multiReact(message, '🍞🇾🇪🇸👍')
+      }],
       [['bread'], async () => {
         await multiReact(message, '🍞🇧🇷🇪🇦🇩👍')
       }],
