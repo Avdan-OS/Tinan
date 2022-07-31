@@ -42,37 +42,57 @@ module.exports = async (client) => {
     const goosStanding = await message.guild.emojis.fetch("993799647015481397").catch(() => { return ":duck:" });
 
     const extCommands = [
-      [['bread'], async () => {
-        await multiReact(message, '🍞🇧🇷🇪🇦🇩👍')
-      }],
-      [['honk'], async () => {
-        await multiReact(message, goosStanding, `🇭🇴🇳🇰👍`)
-      }],
-      [['akane', 'akane cat'], async () => {
-        await multiReact(message, `🅰️ 🇰 🇦 🇳 🇪 🐱`)
-      }],
-      [['pineapple'], () => message.react('🍍')],
-      [['forgor'], () => message.react('💀')],
-      [['cheese'], () => message.react('🧀')],
-      [['oink'], () => message.react('🐷')],
-      [["download avdan os", "avdan os iso"], {
-        embeds: [
-          new MessageEmbed()
-              .setDescription("We have not finished developing AvdanOS, so there is not a download yet.\nWe are currently working on the **window manager**.\nSubscribe to [our Youtube channel](https://www.youtube.com/channel/UCHLCBj83J7bR82HwjhCJusA) for updates on our development.")
-              .setColor("BLUE")
-        ]
-      }
+      [
+        ["bread"],
+        async () => {
+          await multiReact(message, "🍞🇧🇷🇪🇦🇩👍");
+        },
       ],
       [
-        ["how do i become developer", "how do i become a developer"], {
-        embeds: [
-          new MessageEmbed()
-              .setDescription("To join the team please go to #join-the-team, you must meet the requirements specified there.")
-              .setColor("BLUE")
-        ]
-      }
-      ]
-    ]
+        ["honk"],
+        async () => {
+          await multiReact(message, goosStanding, `🇭🇴🇳🇰👍`);
+        },
+      ],
+      [
+        ["akane", "akane cat"],
+        async () => {
+          await multiReact(message, `🅰️ 🇰 🇦 🇳 🇪 🐱`);
+        },
+      ],
+      [["pineapple"], () => message.react("🍍")],
+      [["forgor"], () => message.react("💀")],
+      [["cheese"], () => message.react("🧀")],
+      [["oink"], () => message.react("🐷")],
+      [
+        ["download avdan os", "avdan os iso"],
+        {
+          embeds: [
+            new MessageEmbed()
+              .setDescription(
+                "We have not finished developing AvdanOS, so there is not a download yet.\nWe are currently working on the **window manager**.\nSubscribe to [our Youtube channel](https://www.youtube.com/channel/UCHLCBj83J7bR82HwjhCJusA) for updates on our development."
+              )
+              .setColor("BLUE"),
+          ],
+        },
+      ],
+      [
+        ["when will avdan os release", "when will avdan os launch", "when will avdan os public beta release", "when will avdan os public beta launch"],
+        {
+          embeds: [
+            new MessageEmbed()
+              .setDescription("We expect Avdan OS to launch in 2 years.\nWe will update the exact date on [our Youtube channel](https://www.youtube.com/channel/UCHLCBj83J7bR82HwjhCJusA).\n Subscribe for updates on our development.")
+              .setColor("BLUE"),
+          ],
+        },
+      ],
+      [
+        ["how do i become developer", "how do i become a developer", "how do i enroll as a developer", "how do i become a designer", "how do i become designer", "how do i enroll as a designer"],
+        {
+          embeds: [new MessageEmbed().setDescription("To join the team please go to #📝│role-requests, you must meet the requirements specified there.").setColor("BLUE")],
+        },
+      ],
+    ];
 
     if (
       message.content.startsWith('this has been') &&
