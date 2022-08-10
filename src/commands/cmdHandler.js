@@ -43,10 +43,10 @@ module.exports = async (client) => {
 
     const extCommands = [
       [['bread'], async () => {
-        await multiReact(message, '🍞🇧🇷🇪🇦🇩👍')
+        await multiReact(message, '🍞🇧 🇷 🇪 🇦 🇩👍')
       }],
       [['honk'], async () => {
-        await multiReact(message, goosStanding, `🇭🇴🇳🇰👍`)
+        await multiReact(message, goosStanding, '🇭 🇴 🇳 🇰👍')
       }],
       [['akane', 'akane cat'], async () => {
         await multiReact(message, `🅰️ 🇰 🇦 🇳 🇪 🐱`)
