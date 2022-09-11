@@ -38,7 +38,7 @@ The Discord Bot for the AvdanOS Community Discord server, made using discord.js 
 
 ## Adding commands
 
-In the commands folder, there are 2 `example.js` files. You can use them as a reference to build new commands.
+In `src/commands`, there are 2 `example.js` files. You can use them as a reference to build new commands.
 
 ## Contribution
 
