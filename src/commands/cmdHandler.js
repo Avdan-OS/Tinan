@@ -42,19 +42,7 @@ module.exports = async (client) => {
     const goosStanding = await message.guild.emojis.fetch("993799647015481397").catch(() => { return ":duck:" });
 
     const extCommands = [
-      [['bread'], async () => {
-        await multiReact(message, '🍞🇧🇷🇪🇦🇩👍')
-      }],
-      [['honk'], async () => {
-        await multiReact(message, goosStanding, `🇭🇴🇳🇰👍`)
-      }],
-      [['akane', 'akane cat'], async () => {
-        await multiReact(message, `🅰️ 🇰 🇦 🇳 🇪 🐱`)
-      }],
-      [['pineapple'], () => message.react('🍍')],
       [['forgor'], () => message.react('💀')],
-      [['cheese'], () => message.react('🧀')],
-      [['oink'], () => message.react('🐷')],
       [["download avdan os", "avdan os iso"], {
         embeds: [
           new MessageEmbed()
