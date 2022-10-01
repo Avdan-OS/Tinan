@@ -43,19 +43,20 @@ module.exports = async (client) => {
 
     const extCommands = [
       [['bread'], async () => {
-        await multiReact(message, '🍞🇧🇷🇪🇦🇩👍')
+        await multiReact(message, '🍞 🇧 🇷 🇪 🇦 🇩 👍')
       }],
       [['honk'], async () => {
-        await multiReact(message, goosStanding, `🇭🇴🇳🇰👍`)
+        await multiReact(message, goosStanding, `🇭 🇴 🇳 🇰 👍`)
       }],
       [['akane', 'akane cat'], async () => {
         await multiReact(message, `🅰️ 🇰 🇦 🇳 🇪 🐱`)
       }],
       [['pineapple'], () => message.react('🍍')],
       [['forgor'], () => message.react('💀')],
+      [['rember'], () => message.react('🗿')],
       [['cheese'], () => message.react('🧀')],
       [['oink'], () => message.react('🐷')],
-      [["download avdan os", "avdan os iso"], {
+      [["download avdan os", "avdan os iso", "download avdanos", "avdanos iso"], {
         embeds: [
           new MessageEmbed()
               .setDescription("We have not finished developing AvdanOS, so there is not a download yet.\nWe are currently working on the **window manager**.\nSubscribe to [our Youtube channel](https://www.youtube.com/channel/UCHLCBj83J7bR82HwjhCJusA) for updates on our development.")
