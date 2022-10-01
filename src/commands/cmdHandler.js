@@ -19,8 +19,6 @@ module.exports = async (client) => {
               try {
                 await msg.react(reaction);
               } catch(A) {}
-              
-
             }
           }
         } else {
@@ -42,7 +40,6 @@ module.exports = async (client) => {
     const goosStanding = await message.guild.emojis.fetch("993799647015481397").catch(() => { return ":duck:" });
 
     const extCommands = [
-      [['forgor'], () => message.react('💀')],
       [["download avdan os", "avdan os iso"], {
         embeds: [
           new MessageEmbed()
